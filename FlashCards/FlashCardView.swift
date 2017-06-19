@@ -83,6 +83,12 @@ class XIBView: UIView {
         }
     }
     
+    var color: UIColor! {
+        didSet {
+            self.contentView.backgroundColor = color
+        }
+    }
+    
     func updateGUI() {
         titleLabel.text = self.flashCard.title
         messageTextView.text = flipped ? flashCard.answer : flashCard.question

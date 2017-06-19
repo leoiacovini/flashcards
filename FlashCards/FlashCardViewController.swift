@@ -51,6 +51,7 @@ class FlashCardViewController: UIViewController {
             for (index, card) in deck.flashCards.enumerated() {
                 let fcView = FlashCardView(frame: CGRect(x: baseFrame.origin.x + (CGFloat(index) * self.view.frame.width) , y: baseFrame.origin.y, width: baseFrame.width, height: baseFrame.height))
                 fcView.flashCard = card
+                fcView.color = UIColor(hexColor: deck.hexColor)
                 flashCardScrollView.addSubview(fcView)
                 allFlashCardsViews.append(fcView)
             }

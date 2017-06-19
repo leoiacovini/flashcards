@@ -17,7 +17,7 @@ class DecksCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DecksCollectionViewController.itemLongPress(longPressRecognizer:)))
-        longPressGestureRecognizer.minimumPressDuration = 0.5
+        longPressGestureRecognizer.minimumPressDuration = 0.8
         collectionView?.addGestureRecognizer(longPressGestureRecognizer)
         let label = UILabel(frame: collectionView!.bounds)
         label.textAlignment = .center
