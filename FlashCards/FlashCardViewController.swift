@@ -31,6 +31,14 @@ class FlashCardViewController: UIViewController {
         collectionView.register(FlashCardView.self, forCellWithReuseIdentifier: FlashCardView.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.backgroundColor = UIColor.clear
+        if deck.flashCards.isEmpty {
+            let label = UILabel(frame: collectionView.bounds)
+            label.textAlignment = .center
+            label.numberOfLines = 2
+            label.text = "☹️\nThis Deck has no FlashCards"
+            collectionView.backgroundView = label
+        }
     }
     
     private func updateCounterLabel() {
@@ -61,6 +69,7 @@ extension FlashCardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlashCardView.reuseIdentifier, for: indexPath) as! FlashCardView
         cell.flashCard = deck[indexPath.item]
+        cell.color = UIColor(hexColor: deck.hexColor)
         return cell
     }
     
