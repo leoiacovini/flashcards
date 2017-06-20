@@ -11,8 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FlashCardView" customModule="FlashCards" customModuleProvider="target">
             <connections>
-                <outlet property="contentView" destination="kZ5-O2-7OM" id="n7v-r9-p66"/>
                 <outlet property="flipButton" destination="Oiz-gb-n3b" id="r17-jM-ibf"/>
+                <outlet property="mainView" destination="kZ5-O2-7OM" id="J21-Gf-Lci"/>
                 <outlet property="messageTextView" destination="tEs-cM-5eq" id="vY4-ro-NGU"/>
                 <outlet property="titleLabel" destination="aws-EA-FRZ" id="XGW-J6-NJl"/>
             </connections>

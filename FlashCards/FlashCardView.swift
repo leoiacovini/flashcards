@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XIBView: UIView {
+class XIBView: UICollectionViewCell {
     
     var xibView: UIView!
     
@@ -46,9 +46,10 @@ class XIBView: UIView {
 
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var messageTextView: UITextView!
-    @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var mainView: UIView!
     @IBOutlet private weak var flipButton: UIButton!
     var flipped: Bool = false
+    static let reuseIdentifier: String = "flashCardCell"
     
     override func xibName() -> String {
         return "FlashCardView"
@@ -66,10 +67,10 @@ class XIBView: UIView {
         xibView.layer.shouldRasterize = true
         xibView.layer.rasterizationScale = UIScreen.main.scale
         
-        contentView.layer.cornerRadius = 10
-        contentView.layer.borderColor = UIColor.black.cgColor
-        contentView.layer.borderWidth = 1.0
-        contentView.layer.masksToBounds = true
+        mainView.layer.cornerRadius = 10
+        mainView.layer.borderColor = UIColor.black.cgColor
+        mainView.layer.borderWidth = 1.0
+        mainView.layer.masksToBounds = true
         
         flipButton.layer.shadowColor = UIColor.black.cgColor
         flipButton.layer.shadowOffset = CGSize(width: 0, height: -2)
@@ -85,7 +86,7 @@ class XIBView: UIView {
     
     var color: UIColor! {
         didSet {
-            self.contentView.backgroundColor = color
+            self.mainView.backgroundColor = color
             self.flipButton.backgroundColor = color.lighter(by: 20)
         }
     }

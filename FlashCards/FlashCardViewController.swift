@@ -11,18 +11,12 @@ import UIKit
 class FlashCardViewController: UIViewController {
     
     @IBOutlet weak private var counterLabel: UILabel!
-    @IBOutlet weak private var flashCardScrollView: UIScrollView!
+    @IBOutlet weak private var collectionView: UICollectionView!
     
     var deck: Deck! {
         didSet {
             self.navigationItem.title = deck.name
         }
-    }
-    private var allFlashCardsViews: Array<FlashCardView> = []
-    private var flashCardsViewsInitiated = false
-    
-    @IBAction func flipCard(sender: UIButton!) {
-        allFlashCardsViews[currentFlashCardIndex].flipCard()
     }
     
     fileprivate var currentFlashCardIndex: Int = 0 {
@@ -34,29 +28,9 @@ class FlashCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateCounterLabel()
-        flashCardScrollView.delegate = self
-    }
-        
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupFlashCardsViewsIfNeeded()
-    }
-    
-    private func setupFlashCardsViewsIfNeeded() {
-        if !flashCardsViewsInitiated {
-            allFlashCardsViews = []
-            for v in flashCardScrollView.subviews { v.removeFromSuperview() }
-            flashCardScrollView.contentSize = CGSize(width: self.view.frame.width * CGFloat(deck.size), height: flashCardScrollView.bounds.height)
-            let baseFrame = CGRect(x: 10, y: 25, width: self.view.frame.width - CGFloat(20), height: flashCardScrollView.frame.height - CGFloat(50))
-            for (index, card) in deck.flashCards.enumerated() {
-                let fcView = FlashCardView(frame: CGRect(x: baseFrame.origin.x + (CGFloat(index) * self.view.frame.width) , y: baseFrame.origin.y, width: baseFrame.width, height: baseFrame.height))
-                fcView.flashCard = card
-                fcView.color = UIColor(hexColor: deck.hexColor)
-                flashCardScrollView.addSubview(fcView)
-                allFlashCardsViews.append(fcView)
-            }
-            flashCardsViewsInitiated = true
-        }
+        collectionView.register(FlashCardView.self, forCellWithReuseIdentifier: FlashCardView.reuseIdentifier)
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     private func updateCounterLabel() {
@@ -72,4 +46,31 @@ extension FlashCardViewController: UIScrollViewDelegate {
         let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
         currentFlashCardIndex = Int(pageNumber)
     }
+}
+
+extension FlashCardViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return deck.size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlashCardView.reuseIdentifier, for: indexPath) as! FlashCardView
+        cell.flashCard = deck[indexPath.item]
+        return cell
+    }
+    
+}
+
+extension FlashCardViewController: UICollectionViewDelegateFlowLayout {
+ 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let b = collectionView.bounds
+        return CGSize(width: b.width - 20, height: b.height - 40)
+    }
+    
 }
