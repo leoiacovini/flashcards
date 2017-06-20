@@ -9,17 +9,27 @@
 import Foundation
 import UIKit
 
+class PaddedUILabel: UILabel {
+    override func drawText(in rect: CGRect) {
+        let insets = UIEdgeInsets(top: 2, left: 4, bottom: 2, right: 4)
+        super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
+    }
+}
+
 class DeckCell: UICollectionViewCell {
     static let reuseIdentifier = "DeckCell"
     
     @IBOutlet weak private var nameLabel: UILabel!
-    @IBOutlet weak private var countLabel: UILabel!
+    @IBOutlet weak private var countLabel: PaddedUILabel!
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.layer.cornerRadius = 5
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 1
+        self.countLabel.backgroundColor = #colorLiteral(red: 0.3379045289, green: 0.3379045289, blue: 0.3379045289, alpha: 0.4018354024)
+        self.countLabel.clipsToBounds = true
+        self.countLabel.layer.cornerRadius = 8
     }
     
     var deck: Deck! {
@@ -32,23 +42,23 @@ class DeckCell: UICollectionViewCell {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
-        })
+        }, completion: nil)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesCancelled(touches, with: event)
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.transform = CGAffineTransform.identity
-        })
+        }, completion: nil)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: UIViewAnimationOptions.curveEaseOut, animations: {
             self.transform = CGAffineTransform.identity
-        })
+        }, completion: nil)
     }
 
 }

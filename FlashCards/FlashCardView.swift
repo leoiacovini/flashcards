@@ -86,6 +86,7 @@ class XIBView: UIView {
     var color: UIColor! {
         didSet {
             self.contentView.backgroundColor = color
+            self.flipButton.backgroundColor = color.lighter(by: 20)
         }
     }
     
