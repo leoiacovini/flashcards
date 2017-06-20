@@ -10,7 +10,7 @@ import UIKit
 
 class FlashCardViewController: UIViewController {
     
-    @IBOutlet weak private var counterLabel: UILabel!
+    @IBOutlet weak private var counterLabel: PaddedUILabel!
     @IBOutlet weak private var collectionView: UICollectionView!
     
     var deck: Deck! {
@@ -39,6 +39,8 @@ class FlashCardViewController: UIViewController {
             label.text = "☹️\nThis Deck has no FlashCards"
             collectionView.backgroundView = label
         }
+        counterLabel.layer.cornerRadius = 10
+        counterLabel.clipsToBounds = true
     }
     
     private func updateCounterLabel() {

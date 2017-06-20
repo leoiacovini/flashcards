@@ -68,7 +68,6 @@ class XIBView: UICollectionViewCell {
         xibView.layer.rasterizationScale = UIScreen.main.scale
         
         mainView.layer.cornerRadius = 10
-        mainView.layer.borderColor = UIColor.black.cgColor
         mainView.layer.borderWidth = 1.0
         mainView.layer.masksToBounds = true
         
@@ -88,6 +87,7 @@ class XIBView: UICollectionViewCell {
         didSet {
             self.mainView.backgroundColor = color
             self.flipButton.backgroundColor = color.lighter(by: 20)
+            self.mainView.layer.borderColor = color.darker(by: 20)!.cgColor
         }
     }
     

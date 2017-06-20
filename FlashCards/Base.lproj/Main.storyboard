@@ -22,36 +22,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEf-eo-nOr">
-                                <rect key="frame" x="0.0" y="624" width="375" height="35"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tDi-wZ-gSe">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="sp0-Ly-1QT"/>
+                                    <constraint firstAttribute="height" constant="44" id="xEG-En-x4P"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <items>
+                                    <barButtonItem title="Item" id="NMT-8q-L33"/>
+                                </items>
+                            </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/2" textAlignment="center" lineBreakMode="clip" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="uEf-eo-nOr" customClass="PaddedUILabel" customModule="FlashCards" customModuleProvider="target">
+                                <rect key="frame" x="152" y="632" width="70" height="26"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20347281678082191" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="pfU-Sc-70T"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CLa-1h-2Ea">
-                                <rect key="frame" x="0.0" y="64" width="375" height="552"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="20" id="zXm-ZU-lfI">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="10" id="zXm-ZU-lfI">
                                     <size key="itemSize" width="336" height="447"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="20" maxX="10" maxY="20"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="uEf-eo-nOr" firstAttribute="leading" secondItem="CLa-1h-2Ea" secondAttribute="leading" id="1KP-kS-1Lh"/>
-                            <constraint firstItem="CLa-1h-2Ea" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="FGg-Hg-PO5"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uEf-eo-nOr" secondAttribute="bottom" constant="8" id="LxE-e8-Bb5"/>
-                            <constraint firstItem="CLa-1h-2Ea" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Rs8-XM-oYs"/>
-                            <constraint firstItem="uEf-eo-nOr" firstAttribute="trailing" secondItem="CLa-1h-2Ea" secondAttribute="trailing" id="s5g-Od-gqm"/>
-                            <constraint firstItem="uEf-eo-nOr" firstAttribute="top" secondItem="CLa-1h-2Ea" secondAttribute="bottom" constant="8" id="wRF-nJ-GU0"/>
-                            <constraint firstAttribute="trailing" secondItem="CLa-1h-2Ea" secondAttribute="trailing" id="ycR-Lf-mJd"/>
+                            <constraint firstAttribute="trailing" secondItem="CLa-1h-2Ea" secondAttribute="trailing" id="9HS-gt-T78"/>
+                            <constraint firstItem="CLa-1h-2Ea" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Aa2-Wo-Ng3"/>
+                            <constraint firstItem="tDi-wZ-gSe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Clt-NK-y0O"/>
+                            <constraint firstItem="CLa-1h-2Ea" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M1d-SZ-a5g"/>
+                            <constraint firstAttribute="trailing" secondItem="tDi-wZ-gSe" secondAttribute="trailing" id="OaU-V6-f5K"/>
+                            <constraint firstItem="tDi-wZ-gSe" firstAttribute="top" secondItem="CLa-1h-2Ea" secondAttribute="bottom" id="Upq-oe-4pg"/>
+                            <constraint firstItem="tDi-wZ-gSe" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="VRe-LN-kEe"/>
+                            <constraint firstItem="tDi-wZ-gSe" firstAttribute="centerY" secondItem="uEf-eo-nOr" secondAttribute="centerY" id="dHg-no-Wg7"/>
+                            <constraint firstItem="CLa-1h-2Ea" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="eL4-Im-VCw"/>
+                            <constraint firstItem="tDi-wZ-gSe" firstAttribute="centerX" secondItem="uEf-eo-nOr" secondAttribute="centerX" id="qTG-oi-Wo6"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="FlashCards" id="D5l-Ze-yWK"/>
