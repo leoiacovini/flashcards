@@ -223,6 +223,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="Iuo-2N-URt">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="saveNewDeckWithSender:" destination="W4m-ou-rD4" id="Vgf-VO-AkZ"/>
                             </connections>
@@ -325,6 +326,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="New FlashCard" id="yy3-xW-6bf">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="NJn-fv-rfJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="saveFlashCardWithSender:" destination="y0U-cq-pSq" id="Lfj-xF-7Ib"/>
                             </connections>

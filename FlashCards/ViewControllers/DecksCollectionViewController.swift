@@ -42,17 +42,14 @@ import CoreData
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:
-            print("delete \(indexPath)")
             if let index = indexPath {
              self.collectionView.deleteItems(at: [index])
             }
         case .insert:
-            print("insert \(newIndexPath)")
             if let index = newIndexPath {
                 self.collectionView.insertItems(at: [index])
             }
         case .update:
-            print("update \(indexPath)")
             if let index = indexPath {
                 self.collectionView.reloadItems(at: [index])
             }
@@ -90,10 +87,10 @@ class DecksCollectionViewController: UICollectionViewController {
         cdDeckDataSource = CDDecksDataSource(context: assembler.databaseController.viewContext, collectionView: collectionView!)
         try! cdDeckDataSource.start()
         collectionView?.dataSource = self.cdDeckDataSource
-        print(cdDeckDataSource.count(section: 0))
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DecksCollectionViewController.itemLongPress(longPressRecognizer:)))
         longPressGestureRecognizer.minimumPressDuration = 0.8
         collectionView?.addGestureRecognizer(longPressGestureRecognizer)
+        setupUI()
     }
     
     func setupUI() {
@@ -163,9 +160,7 @@ class DecksCollectionViewController: UICollectionViewController {
         }
     }
     
-    @IBAction func unwindToDecksCollectionViewController(segue: UIStoryboardSegue) {
-//        assembler.databaseController.viewContext.rollback()
-    }
+    @IBAction func unwindToDecksCollectionViewController(segue: UIStoryboardSegue) { }
     
 }
 
