@@ -25,6 +25,7 @@ class EditFlashCardViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        closeKeyboardOnTouch()
         questionTextView.delegate = self
         answerTextView.delegate = self
         if let cdFlashCard = cdFlashCard {

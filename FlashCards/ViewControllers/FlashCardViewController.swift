@@ -19,7 +19,7 @@ class FlashCardViewController: UIViewController {
         }
     }
     
-    fileprivate var currentFlashCardIndex: Int = 0 {
+    private var currentFlashCardIndex: Int = 0 {
         didSet {
             updateCounterLabel()
         }

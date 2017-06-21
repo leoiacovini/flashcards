@@ -43,8 +43,8 @@ class EditDeckViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        closeKeyboardOnTouch()
         self.tempContext = assembler.databaseController.child()
-        navigationController?.navigationBar.tintColor = UIColor.white
         if cdDeck == nil {
             self.cdDeck = CDDeck(context: tempContext)
         } else {
@@ -52,6 +52,7 @@ class EditDeckViewController: UIViewController {
         }
         self.deckNameCell = self.tableView.dequeueReusableCell(withIdentifier: TextInputTableViewCell.reuseIdentifier) as! TextInputTableViewCell
         self.deckColorCell = self.tableView.dequeueReusableCell(withIdentifier: ColorPickerTableViewCell.reuseIdentifier) as! ColorPickerTableViewCell
+        navigationController?.navigationBar.tintColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {

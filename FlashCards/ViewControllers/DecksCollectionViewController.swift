@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-@objc class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
+class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsControllerDelegate {
     
     var fetchedResultsController: NSFetchedResultsController<CDDeck>!
     var collectionView: UICollectionView!
@@ -73,7 +73,6 @@ import CoreData
     func object(at indexPath: IndexPath) -> CDDeck {
         return self.fetchedResultsController.object(at: indexPath)
     }
-    
 }
 
 class DecksCollectionViewController: UICollectionViewController {
@@ -101,6 +100,7 @@ class DecksCollectionViewController: UICollectionViewController {
         label.text = "☹️ \n No Decks Here"
         self.collectionView?.backgroundView = label
         navigationController?.navigationBar.tintColor = UIColor.white
+        updateBackgound()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,11 +110,7 @@ class DecksCollectionViewController: UICollectionViewController {
     
     func updateBackgound() {
         UIView.animate(withDuration: 0.4, animations: {
-            if self.cdDeckDataSource.isEmpty(section: 0) {
-                self.collectionView?.backgroundView?.alpha = 1
-            } else {
-                self.collectionView?.backgroundView?.alpha = 0
-            }
+            self.collectionView?.backgroundView?.alpha = self.cdDeckDataSource.isEmpty(section: 0) ? 1 : 0
         })
     }
     
@@ -161,9 +157,5 @@ class DecksCollectionViewController: UICollectionViewController {
     }
     
     @IBAction func unwindToDecksCollectionViewController(segue: UIStoryboardSegue) { }
-    
-}
-
-extension DecksCollectionViewController: NSFetchedResultsControllerDelegate {
     
 }
