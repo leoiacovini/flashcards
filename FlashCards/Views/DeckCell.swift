@@ -10,13 +10,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-class PaddedUILabel: UILabel {
-    override func drawText(in rect: CGRect) {
-        let insets = UIEdgeInsets(top: 3, left: 4, bottom: 3, right: 4)
-        super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
-    }
-}
-
 class DeckCell: UICollectionViewCell {
     static let reuseIdentifier = "DeckCell"
     

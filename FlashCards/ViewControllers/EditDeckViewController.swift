@@ -63,14 +63,12 @@ class EditDeckViewController: UIViewController {
     @IBAction func saveNewDeck(sender: UIButton!) {
         cdDeck.name = deckNameCell.textInput.text!
         cdDeck.hexColor = deckColorCell.colorPickerView.selectedColor?.hexValue ?? "CDCDCD"
-        print(tempContext.hasChanges)
         tempContext.performAndWait {
             try! self.tempContext.save()
         }
         assembler.databaseController.viewContext.performAndWait {
              self.assembler.databaseController.saveContext()
         }
-        print(assembler.databaseController.viewContext.hasChanges)
         self.dismiss(animated: true, completion: nil)
     }
     

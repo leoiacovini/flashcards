@@ -65,3 +65,16 @@ extension UIColor {
         }
     }
 }
+
+extension UIViewController {
+    
+    @objc func closeKeyboardOnTouch() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(closeKeyboard))
+        tapGestureRecognizer.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc private func closeKeyboard() {
+        self.view.endEditing(true)
+    }
+}

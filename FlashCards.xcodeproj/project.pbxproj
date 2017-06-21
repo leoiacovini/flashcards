@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110B52E61EFA525000999B4F /* CDDeckDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B52E51EFA525000999B4F /* CDDeckDataSource.swift */; };
+		110B52E81EFA544700999B4F /* PaddedUILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110B52E71EFA544700999B4F /* PaddedUILabel.swift */; };
 		1116C93F1EF21BD200C189A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1116C93E1EF21BD200C189A2 /* AppDelegate.swift */; };
 		1116C9411EF21BD200C189A2 /* FlashCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1116C9401EF21BD200C189A2 /* FlashCardViewController.swift */; };
 		1116C9441EF21BD200C189A2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1116C9421EF21BD200C189A2 /* Main.storyboard */; };
@@ -26,7 +28,7 @@
 		1179DDF41EF5AD9A00C1D280 /* DeckCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1179DDF31EF5AD9A00C1D280 /* DeckCell.swift */; };
 		1179DDF61EF5ADFA00C1D280 /* FlashCardsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1179DDF51EF5ADFA00C1D280 /* FlashCardsTableViewCell.swift */; };
 		1179DDF81EF5B52F00C1D280 /* TextInputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1179DDF71EF5B52F00C1D280 /* TextInputTableViewCell.swift */; };
-		1179DDFC1EF5D44300C1D280 /* UIColor+hexColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1179DDFB1EF5D44300C1D280 /* UIColor+hexColor.swift */; };
+		1179DDFC1EF5D44300C1D280 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1179DDFB1EF5D44300C1D280 /* Extensions.swift */; };
 		11D4C3991EF7703F00E56B6F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11D4C3971EF7703F00E56B6F /* Model.xcdatamodeld */; };
 		11D4C3E01EF77CD600E56B6F /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D4C3DF1EF77CD600E56B6F /* DatabaseController.swift */; };
 		11D4C3EA1EF814D400E56B6F /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D4C3E91EF814D400E56B6F /* DocumentController.swift */; };
@@ -53,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110B52E51EFA525000999B4F /* CDDeckDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDDeckDataSource.swift; sourceTree = "<group>"; };
+		110B52E71EFA544700999B4F /* PaddedUILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedUILabel.swift; sourceTree = "<group>"; };
 		1116C93B1EF21BD200C189A2 /* FlashCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1116C93E1EF21BD200C189A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1116C9401EF21BD200C189A2 /* FlashCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewController.swift; sourceTree = "<group>"; };
@@ -78,7 +82,7 @@
 		1179DDF31EF5AD9A00C1D280 /* DeckCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckCell.swift; sourceTree = "<group>"; };
 		1179DDF51EF5ADFA00C1D280 /* FlashCardsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashCardsTableViewCell.swift; sourceTree = "<group>"; };
 		1179DDF71EF5B52F00C1D280 /* TextInputTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextInputTableViewCell.swift; sourceTree = "<group>"; };
-		1179DDFB1EF5D44300C1D280 /* UIColor+hexColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+hexColor.swift"; sourceTree = "<group>"; };
+		1179DDFB1EF5D44300C1D280 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		11D4C3981EF7703F00E56B6F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		11D4C3DF1EF77CD600E56B6F /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		11D4C3E91EF814D400E56B6F /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
@@ -143,7 +147,7 @@
 				11F17D011EFA0FAF003EE215 /* Controllers */,
 				11F17D001EFA0F9F003EE215 /* Models */,
 				1116C93E1EF21BD200C189A2 /* AppDelegate.swift */,
-				1179DDFB1EF5D44300C1D280 /* UIColor+hexColor.swift */,
+				1179DDFB1EF5D44300C1D280 /* Extensions.swift */,
 				1116C9421EF21BD200C189A2 /* Main.storyboard */,
 				1116C9471EF21BD200C189A2 /* LaunchScreen.storyboard */,
 				1116C94A1EF21BD200C189A2 /* Info.plist */,
@@ -201,6 +205,7 @@
 				1179DDF71EF5B52F00C1D280 /* TextInputTableViewCell.swift */,
 				11507F0A1EF5E739000AAD93 /* ColorPickerView.swift */,
 				11507F0C1EF5FBE1000AAD93 /* ColorPickerTableViewCell.swift */,
+				110B52E71EFA544700999B4F /* PaddedUILabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 		11F17D011EFA0FAF003EE215 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				110B52E51EFA525000999B4F /* CDDeckDataSource.swift */,
 				11D4C3DF1EF77CD600E56B6F /* DatabaseController.swift */,
 				11D4C3E91EF814D400E56B6F /* DocumentController.swift */,
 				11F17D021EFA1832003EE215 /* Assembler.swift */,
@@ -392,6 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				110B52E61EFA525000999B4F /* CDDeckDataSource.swift in Sources */,
 				1116C96E1EF21EA300C189A2 /* FlashCard.swift in Sources */,
 				1116C97B1EF313A100C189A2 /* EditDeckViewController.swift in Sources */,
 				1116C9701EF220A900C189A2 /* FlashCardView.swift in Sources */,
@@ -403,12 +410,13 @@
 				1116C9791EF2E76500C189A2 /* DecksCollectionViewController.swift in Sources */,
 				11D4C3EA1EF814D400E56B6F /* DocumentController.swift in Sources */,
 				1179DDF61EF5ADFA00C1D280 /* FlashCardsTableViewCell.swift in Sources */,
-				1179DDFC1EF5D44300C1D280 /* UIColor+hexColor.swift in Sources */,
+				1179DDFC1EF5D44300C1D280 /* Extensions.swift in Sources */,
 				11D4C3991EF7703F00E56B6F /* Model.xcdatamodeld in Sources */,
 				1116C9411EF21BD200C189A2 /* FlashCardViewController.swift in Sources */,
 				11507F0D1EF5FBE1000AAD93 /* ColorPickerTableViewCell.swift in Sources */,
 				11D4C3E01EF77CD600E56B6F /* DatabaseController.swift in Sources */,
 				11507F0B1EF5E739000AAD93 /* ColorPickerView.swift in Sources */,
+				110B52E81EFA544700999B4F /* PaddedUILabel.swift in Sources */,
 				1116C93F1EF21BD200C189A2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
