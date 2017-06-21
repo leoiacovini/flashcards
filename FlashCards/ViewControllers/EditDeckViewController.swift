@@ -43,7 +43,7 @@ class EditDeckViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //closeKeyboardOnTouch()
+        closeKeyboardOnTouch()
         self.tempContext = assembler.databaseController.child()
         if cdDeck == nil {
             self.cdDeck = CDDeck(context: tempContext)
@@ -62,7 +62,7 @@ class EditDeckViewController: UIViewController {
     
     @IBAction func saveNewDeck(sender: UIButton!) {
         cdDeck.name = deckNameCell.textInput.text!
-        cdDeck.hexColor = deckColorCell.colorPickerView.selectedColor?.hexValue ?? "FFFFFF"
+        cdDeck.hexColor = deckColorCell.colorPickerView.selectedColor?.hexValue ?? "CDCDCD"
         print(tempContext.hasChanges)
         tempContext.performAndWait {
             try! self.tempContext.save()
