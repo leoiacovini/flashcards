@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol EditFlashCardControllerDelegate: class {
     func editFlashCardViewController(_ editFlashCardViewController: EditFlashCardViewController, didSaveFlashCard cdFlashCard: CDFlashCard) -> Void
@@ -19,7 +20,7 @@ class EditFlashCardViewController: UITableViewController {
     @IBOutlet weak var answerTextView: UITextView!
     
     weak var delegate: EditFlashCardControllerDelegate?
-    var databaseController: DatabaseController!
+    var context: NSManagedObjectContext!
     var cdFlashCard: CDFlashCard!
     
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ class EditFlashCardViewController: UITableViewController {
             return
         }
         if cdFlashCard == nil {
-            cdFlashCard = CDFlashCard(context: databaseController.viewContext)
+            cdFlashCard = CDFlashCard(context: context)
         }
         cdFlashCard.title = titleTextField.text!
         cdFlashCard.question = questionTextView.text!

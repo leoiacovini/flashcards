@@ -32,7 +32,10 @@ extension UIColor {
             
             getRed(&r, green: &g, blue: &b, alpha: &a)
             
-            let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+            let ri = ((Int)(r*255)<<16)
+            let gi = ((Int)(g*255)<<8)
+            let bi = ((Int)(b*255)<<0)
+            let rgb: Int = ri | gi | bi
             
             return String(format:"#%06x", rgb)
         }

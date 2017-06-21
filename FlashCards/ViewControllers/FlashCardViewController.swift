@@ -53,7 +53,7 @@ class FlashCardViewController: UIViewController {
 
 extension FlashCardViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageNumber = scrollView.contentOffset.x / scrollView.frame.size.width
+        let pageNumber = (scrollView.contentOffset.x + 10) / scrollView.frame.size.width
         currentFlashCardIndex = Int(pageNumber)
     }
 }

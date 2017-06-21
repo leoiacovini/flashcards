@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class EditDeckViewController: UIViewController {
 
-    var databaseController: DatabaseController!
+    var assembler: Assembler!
     var cdDeck: CDDeck!
+    var tempContext: NSManagedObjectContext!
     
     var newFlashCardButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
@@ -41,9 +43,12 @@ class EditDeckViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tempContext = assembler.databaseController.child()
         navigationController?.navigationBar.tintColor = UIColor.white
         if cdDeck == nil {
-            self.cdDeck = CDDeck(context: databaseController.viewContext)
+            self.cdDeck = CDDeck(context: tempContext)
+        } else {
+            self.cdDeck = tempContext.object(with: cdDeck.objectID) as! CDDeck
         }
         self.deckNameCell = self.tableView.dequeueReusableCell(withIdentifier: TextInputTableViewCell.reuseIdentifier) as! TextInputTableViewCell
         self.deckColorCell = self.tableView.dequeueReusableCell(withIdentifier: ColorPickerTableViewCell.reuseIdentifier) as! ColorPickerTableViewCell
@@ -57,11 +62,18 @@ class EditDeckViewController: UIViewController {
     @IBAction func saveNewDeck(sender: UIButton!) {
         cdDeck.name = deckNameCell.textInput.text!
         cdDeck.hexColor = deckColorCell.colorPickerView.selectedColor?.hexValue ?? "FFFFFF"
-        databaseController.saveContext()
+        print(tempContext.hasChanges)
+        tempContext.performAndWait {
+            try! self.tempContext.save()
+        }
+        assembler.databaseController.viewContext.performAndWait {
+             self.assembler.databaseController.saveContext()
+        }
+        print(assembler.databaseController.viewContext.hasChanges)
         self.dismiss(animated: true, completion: nil)
     }
     
-    func newFlashCard() {
+    @objc func newFlashCard() {
         self.performSegue(withIdentifier: "addFlashCard", sender: newFlashCardButton)
     }
     
@@ -71,7 +83,7 @@ class EditDeckViewController: UIViewController {
             if let cell = sender as? FlashCardTableViewCell {
                 editFlashCardViewController.cdFlashCard = cell.cdFlashCard
             }
-            editFlashCardViewController.databaseController = self.databaseController
+            editFlashCardViewController.context = self.tempContext
             editFlashCardViewController.delegate = self
         }
     }
@@ -172,7 +184,7 @@ extension EditDeckViewController: UITableViewDelegate {
         return [UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Delete", handler: { (action, indexPath) in
             let fcTableViewCell = tableView.cellForRow(at: indexPath) as! FlashCardTableViewCell
             let cdFlashCard = fcTableViewCell.cdFlashCard!
-            cdFlashCard.delete(context: self.databaseController.viewContext)
+            cdFlashCard.delete(context: self.assembler.databaseController.viewContext)
             self.cdDeck.removeCDFlashCard(cdFlashCard)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         })]

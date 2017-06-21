@@ -12,13 +12,13 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let databaseController: DatabaseController = DatabaseController()
-
+    let assembler: Assembler = Assembler()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let navigationViewController = window?.rootViewController as? UINavigationController
         let decksCollectionViewController = navigationViewController?.visibleViewController as? DecksCollectionViewController
-        decksCollectionViewController?.databaseController = self.databaseController
+        decksCollectionViewController?.assembler = assembler
         return true
     }
 
@@ -45,4 +45,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
-

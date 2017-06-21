@@ -46,6 +46,12 @@ class DatabaseController {
         }
     }
     
+    func child(concurrencyType: NSManagedObjectContextConcurrencyType = .mainQueueConcurrencyType) -> NSManagedObjectContext {
+        let child = NSManagedObjectContext(concurrencyType: concurrencyType)
+        child.parent = self.viewContext
+        return child
+    }
+    
     func newBackgroundContext() -> NSManagedObjectContext {
         return self.persistentContainer.newBackgroundContext()
     }
