@@ -56,7 +56,7 @@ class EditFlashCardViewController: UITableViewController {
 
 extension EditFlashCardViewController: UITextViewDelegate {
     
-    fileprivate func setUpPlaceholders() {
+    private func setUpPlaceholders() {
         if questionTextView.text.isEmpty {
             self.questionTextView.text = "Question"
             self.questionTextView.textColor = UIColor.lightGray

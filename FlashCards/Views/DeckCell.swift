@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SnapKit
 
 class PaddedUILabel: UILabel {
     override func drawText(in rect: CGRect) {
@@ -19,23 +20,60 @@ class PaddedUILabel: UILabel {
 class DeckCell: UICollectionViewCell {
     static let reuseIdentifier = "DeckCell"
     
-    @IBOutlet weak private var nameLabel: UILabel!
-    @IBOutlet weak private var countLabel: PaddedUILabel!
-    @IBOutlet weak private var mainView: UIView!
+    private var nameLabel: UILabel!
+    private var countLabel: PaddedUILabel!
+    private var mainView: UIView!
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.layer.cornerRadius = 5
-        self.mainView.layer.cornerRadius = 5
-        self.countLabel.backgroundColor = #colorLiteral(red: 0.3379045289, green: 0.3379045289, blue: 0.3379045289, alpha: 0.4018354024)
+    func setupUI() {
+        nameLabel = UILabel()
+        countLabel = PaddedUILabel()
+        mainView = UIView()
         
-        self.mainView.clipsToBounds = true
-        self.countLabel.clipsToBounds = true
-        self.countLabel.layer.cornerRadius = 8
+        layer.cornerRadius = 5
+        mainView.layer.cornerRadius = 5
+        mainView.clipsToBounds = true
+        
+        countLabel.backgroundColor = #colorLiteral(red: 0.3379045289, green: 0.3379045289, blue: 0.3379045289, alpha: 0.4018354024)
+        countLabel.adjustsFontSizeToFitWidth = true
+        countLabel.clipsToBounds = true
+        countLabel.layer.cornerRadius = 8
+        countLabel.textAlignment = .center
+        
+        nameLabel.textAlignment = .center
+        nameLabel.adjustsFontSizeToFitWidth = true
+        
+        addSubview(mainView)
+        mainView.addSubview(nameLabel)
+        mainView.addSubview(countLabel)
+        
+        mainView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.bottom.equalTo(self.snp.bottom).offset(-8)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.mainView.snp.top).offset(8)
+            make.centerX.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        countLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.mainView.snp.bottom).offset(-8)
+            make.centerX.equalToSuperview()
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     var deck: Deck! {
@@ -68,5 +106,5 @@ class DeckCell: UICollectionViewCell {
             self.transform = CGAffineTransform.identity
         }, completion: nil)
     }
-
+    
 }

@@ -75,7 +75,7 @@ class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsC
     }
 }
 
-class DecksCollectionViewController: UICollectionViewController {
+class DecksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var assembler: Assembler!
     var longPressGestureRecognizer: UILongPressGestureRecognizer!
@@ -86,6 +86,8 @@ class DecksCollectionViewController: UICollectionViewController {
         cdDeckDataSource = CDDecksDataSource(context: assembler.databaseController.viewContext, collectionView: collectionView!)
         try! cdDeckDataSource.start()
         collectionView?.dataSource = self.cdDeckDataSource
+        collectionView?.register(DeckCell.self, forCellWithReuseIdentifier: DeckCell.reuseIdentifier)
+        collectionView?.backgroundColor = UIColor.white
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DecksCollectionViewController.itemLongPress(longPressRecognizer:)))
         longPressGestureRecognizer.minimumPressDuration = 0.8
         collectionView?.addGestureRecognizer(longPressGestureRecognizer)
@@ -157,5 +159,14 @@ class DecksCollectionViewController: UICollectionViewController {
     }
     
     @IBAction func unwindToDecksCollectionViewController(segue: UIStoryboardSegue) { }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 150, height: 150)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! DeckCell
+        performSegue(withIdentifier: "deckSelected", sender: cell)
+    }
     
 }

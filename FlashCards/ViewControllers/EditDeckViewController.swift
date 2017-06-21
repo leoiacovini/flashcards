@@ -43,7 +43,7 @@ class EditDeckViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        closeKeyboardOnTouch()
+        //closeKeyboardOnTouch()
         self.tempContext = assembler.databaseController.child()
         if cdDeck == nil {
             self.cdDeck = CDDeck(context: tempContext)
