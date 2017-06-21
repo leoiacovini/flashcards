@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import SnapKit
 
 class ColorPickerCollectionViewCell: UICollectionViewCell {
+    
     static let reuseIdentifier: String = "ColorPickerCollectionViewCell"
     lazy private var checkMark: UIImageView! = {
         let cm = UIImageView(image: #imageLiteral(resourceName: "check"))
+        cm.contentMode = .scaleAspectFit
         cm.isHidden = true
         return cm
     }()
@@ -42,11 +45,9 @@ class ColorPickerCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.addSubview(checkMark)
-        checkMark.translatesAutoresizingMaskIntoConstraints = false
-        self.addConstraint(NSLayoutConstraint(item: checkMark, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 4))
-        self.addConstraint(NSLayoutConstraint(item: checkMark, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 4))
-        self.addConstraint(NSLayoutConstraint(item: checkMark, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -4))
-        self.addConstraint(NSLayoutConstraint(item: checkMark, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: -4))
+        checkMark.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
+        }
     }
     
 }
@@ -99,14 +100,11 @@ class ColorPickerView: UIView {
         }
     }
     
-    
     override func layoutSubviews() {
         self.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.addConstraint(NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: collectionView, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0))
+        collectionView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
     
 }
