@@ -75,6 +75,7 @@ class ColorPickerView: UIView {
     }()
     
     public var colors: Array<UIColor> = [#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1), #colorLiteral(red: 0.9411764741, green: 0.3835619448, blue: 0.3644898282, alpha: 1), #colorLiteral(red: 0.9836628946, green: 1, blue: 0.1662727548, alpha: 1), #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1), #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1), #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1), #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), #colorLiteral(red: 0.8446564078, green: 0.5145705342, blue: 1, alpha: 1), #colorLiteral(red: 0.5612005245, green: 0.3096122621, blue: 1, alpha: 1), #colorLiteral(red: 0.3140794347, green: 1, blue: 0.8784005545, alpha: 1), #colorLiteral(red: 0.628577967, green: 1, blue: 0.1056284226, alpha: 1)]
+    public var colorCellSize: Int = 48
     public weak var delegate: ColorPickerViewDelegate?
     
     public var selectedColorIndex: Int? {
@@ -117,17 +118,11 @@ extension ColorPickerView: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorPickerCollectionViewCell.reuseIdentifier, for: indexPath) as! ColorPickerCollectionViewCell
-        if indexPath.item == selectedColorIndex {
-            cell.checked = true
-        } else {
-            cell.checked = false
-        }
         cell.color = colors[indexPath.item]
         return cell
     }
     
 }
-
 
 extension ColorPickerView: UICollectionViewDelegate {
     
@@ -136,12 +131,21 @@ extension ColorPickerView: UICollectionViewDelegate {
         delegate?.colorPickerView(self, didSelectItemAt: indexPath)
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cell = cell as! ColorPickerCollectionViewCell
+        if indexPath.item == selectedColorIndex {
+            cell.checked = true
+        } else {
+            cell.checked = false
+        }
+    }
     
 }
 
 extension ColorPickerView: UICollectionViewDelegateFlowLayout {
+    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 48, height: 48)
+        return CGSize(width: colorCellSize, height: colorCellSize)
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

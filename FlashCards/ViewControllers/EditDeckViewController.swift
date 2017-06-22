@@ -27,6 +27,7 @@ class EditDeckViewController: UIViewController {
     var deckNameCell: TextInputTableViewCell! {
         didSet {
             deckNameCell.textInput.delegate = self
+            deckNameCell.textInput.placeholder = "Deck Name"
             deckNameCell.textInput.text = cdDeck.name
             deckNameCell.selectionStyle = UITableViewCellSelectionStyle.none
         }
@@ -44,14 +45,11 @@ class EditDeckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         closeKeyboardOnTouch()
-        self.tempContext = assembler.databaseController.child()
-        if cdDeck == nil {
-            self.cdDeck = CDDeck(context: tempContext)
-        } else {
-            self.cdDeck = tempContext.object(with: cdDeck.objectID) as! CDDeck
-        }
-        self.deckNameCell = self.tableView.dequeueReusableCell(withIdentifier: TextInputTableViewCell.reuseIdentifier) as! TextInputTableViewCell
-        self.deckColorCell = self.tableView.dequeueReusableCell(withIdentifier: ColorPickerTableViewCell.reuseIdentifier) as! ColorPickerTableViewCell
+        tempContext = assembler.databaseController.child()
+        cdDeck = cdDeck == nil ? CDDeck(context: tempContext) : tempContext.object(with: cdDeck.objectID) as! CDDeck
+        tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: "TextInputTableViewCell")
+        deckNameCell = tableView.dequeueReusableCell(withIdentifier: TextInputTableViewCell.reuseIdentifier) as! TextInputTableViewCell
+        deckColorCell = tableView.dequeueReusableCell(withIdentifier: ColorPickerTableViewCell.reuseIdentifier) as! ColorPickerTableViewCell
         navigationController?.navigationBar.tintColor = UIColor.white
     }
     
@@ -107,8 +105,7 @@ extension EditDeckViewController: EditFlashCardControllerDelegate {
 extension EditDeckViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        self.becomeFirstResponder()
+        self.view.endEditing(true)
         return true
     }
 
@@ -138,7 +135,7 @@ extension EditDeckViewController: UITableViewDataSource {
             case 1:
                 return self.deckColorCell
             default:
-                exit(EXIT_FAILURE)
+                fatalError()
             }
         } else {
             let flashCardCell = self.tableView.dequeueReusableCell(withIdentifier: FlashCardTableViewCell.reuseIdentifier, for: indexPath) as! FlashCardTableViewCell
