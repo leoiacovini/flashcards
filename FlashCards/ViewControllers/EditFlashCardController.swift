@@ -23,6 +23,10 @@ class ImagePickerDelegateHandler: NSObject, UIImagePickerControllerDelegate, UIN
         picker.dismiss(animated: true, completion: nil)
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+    }
+    
 }
 
 protocol EditFlashCardControllerDelegate: class {
@@ -34,10 +38,22 @@ class EditFlashCardViewController: UITableViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var questionTextView: UITextView!
     @IBOutlet weak var answerTextView: UITextView!
+    @IBOutlet weak var addQuestionImageButton: UIButton!
+    @IBOutlet weak var addAnswerImageButton: UIButton!
     
     weak var delegate: EditFlashCardControllerDelegate?
     var context: NSManagedObjectContext!
     var cdFlashCard: CDFlashCard!
+    var questionImage: UIImage? {
+        didSet {
+            self.addQuestionImageButton.setBackgroundImage(questionImage, for: .normal)
+        }
+    }
+    var answerImage: UIImage? {
+        didSet {
+            self.addAnswerImageButton.setBackgroundImage(answerImage, for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +64,8 @@ class EditFlashCardViewController: UITableViewController {
             titleTextField.text = cdFlashCard.title
             questionTextView.text = cdFlashCard.question
             answerTextView.text = cdFlashCard.answer
+            questionImage = cdFlashCard.questionImage != nil ? UIImage(data: cdFlashCard.questionImage!) : #imageLiteral(resourceName: "add")
+            answerImage = cdFlashCard.answerImage != nil ?  UIImage(data: cdFlashCard.answerImage!): #imageLiteral(resourceName: "add")
         }
         setUpPlaceholders()
     }
@@ -65,28 +83,36 @@ class EditFlashCardViewController: UITableViewController {
         cdFlashCard.title = titleTextField.text!
         cdFlashCard.question = questionTextView.text!
         cdFlashCard.answer = answerTextView.text!
+        if let image = questionImage { cdFlashCard.setQuestionImage(image) }
+        if let image = answerImage { cdFlashCard.setAnswerImage(image) }
         delegate?.editFlashCardViewController(self, didSaveFlashCard: cdFlashCard)
     }
     
-    let handler = ImagePickerDelegateHandler { (image) in
-        print(image)
-    }
-    
-    private func getImage() {
+    private func getImage(handler: ImagePickerDelegateHandler) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.allowsEditing = true
         imagePickerController.sourceType = .photoLibrary
-        
         imagePickerController.delegate = handler
         present(imagePickerController, animated: true)
     }
     
+    var questionImageHandler: ImagePickerDelegateHandler!
+    var answerImageHandler: ImagePickerDelegateHandler!
+    
     @IBAction private func addQuestionImage(sender: UIButton!) {
-        getImage()
+        questionImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
+            self.questionImage = image
+            sender.setBackgroundImage(image, for: UIControlState.normal)
+        })
+        getImage(handler: questionImageHandler)
     }
     
     @IBAction private func addAnswerImage(sender: UIButton!) {
-        
+        answerImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
+            self.answerImage = image
+            sender.setBackgroundImage(image, for: UIControlState.normal)
+        })
+        getImage(handler: answerImageHandler)
     }
     
 }

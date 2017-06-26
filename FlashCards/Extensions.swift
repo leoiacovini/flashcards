@@ -78,3 +78,18 @@ extension UIViewController {
         self.view.endEditing(true)
     }
 }
+
+precedencegroup AssignIfNotNillPrecedence {
+    associativity: right
+    assignment: true
+}
+
+infix operator ?=: AssignIfNotNillPrecedence
+
+func ?=<T>( left: inout T?, right: T?) {
+    if let value  = right {
+        left = value
+    } else {
+        left = nil
+    }
+}

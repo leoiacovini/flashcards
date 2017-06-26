@@ -23,13 +23,15 @@ class DocumentController {
     }
     
     func createDeckFile(deck: Deck) -> URL? {
-        guard let data = deck.exportToJson() else { return nil }
+        let jsonEnconder = JSONEncoder()
+        guard let data = try? jsonEnconder.encode(deck) else { return nil }
         return saveTmpFile(name: deck.name, data: data)
     }
     
     func readDeckFile(url: URL) -> Deck? {
         if let data =  try? Data(contentsOf: url) {
-            return Deck.fromJsonData(data)
+            let jsonDecoder = JSONDecoder()
+            return try? jsonDecoder.decode(Deck.self, from: data)
         } else {
             return nil
         }

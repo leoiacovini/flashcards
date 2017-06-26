@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-struct Deck {
+struct Deck: Codable {
     
     var name: String
     var flashCards: Array<FlashCard>
@@ -45,37 +45,6 @@ struct Deck {
     
     mutating func remove(at index: Int) {
         self.flashCards.remove(at: index)
-    }
-    
-    func convertToDict() -> Dictionary<String, Any> {
-        let dictFlashCards = flashCards.map { $0.dictValue }
-        return ["name": name,
-                "hexColor": hexColor,
-                "flashCards": dictFlashCards]
-    }
-    
-    func exportToJson() -> Data? {
-        return try? JSONSerialization.data(withJSONObject: convertToDict(), options: [])
-    }
-    
-    static func fromDict(_ dict: Dictionary<String, Any>) -> Deck? {
-        if let flashCardsDic = dict["flashCards"] as? Array<Dictionary<String, String>>,
-            let flashCards = (flashCardsDic.map { FlashCard.fromDict($0) } as? Array<FlashCard>),
-            let name = dict["name"] as? String,
-            let hexColor = dict["hexColor"] as? String {
-            return Deck(name: name, hexColor: hexColor, flashCards: flashCards)
-        } else {
-            return nil
-        }
-    }
-    
-    static func fromJsonData(_ data: Data) -> Deck? {
-        let anyDict = try? JSONSerialization.jsonObject(with: data, options: [])
-        if let dict = anyDict as? Dictionary<String, Any> {
-            return Deck.fromDict(dict)
-        } else {
-            return nil
-        }
     }
     
     subscript(index: Int) -> FlashCard {
