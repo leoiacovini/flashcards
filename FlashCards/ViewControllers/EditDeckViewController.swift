@@ -10,10 +10,11 @@ import UIKit
 import CoreData
 
 class EditDeckViewController: UIViewController {
-
+    
+    @IBOutlet weak var tableView: UITableView!
     var assembler: Assembler!
     var cdDeck: CDDeck!
-    var tempContext: NSManagedObjectContext!
+    var tmpContext: NSManagedObjectContext!
     
     var newFlashCardButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
@@ -39,15 +40,17 @@ class EditDeckViewController: UIViewController {
             deckColorCell.selectionStyle = UITableViewCellSelectionStyle.none
         }
     }
-    
-    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         closeKeyboardOnTouch()
-        tempContext = assembler.databaseController.child()
-        cdDeck = cdDeck == nil ? CDDeck(context: tempContext) : tempContext.object(with: cdDeck.objectID) as! CDDeck
-        tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: "TextInputTableViewCell")
+        tmpContext = assembler.databaseController.viewContext.child()
+        cdDeck = cdDeck == nil ? CDDeck(context: tmpContext) : tmpContext.object(with: cdDeck.objectID) as! CDDeck
+        
+        tableView.register(ColorPickerTableViewCell.self, forCellReuseIdentifier: ColorPickerTableViewCell.reuseIdentifier)
+        tableView.register(TextInputTableViewCell.self, forCellReuseIdentifier: TextInputTableViewCell.reuseIdentifier)
+        tableView.register(FlashCardTableViewCell.self, forCellReuseIdentifier: FlashCardTableViewCell.reuseIdentifier)
+        
         deckNameCell = tableView.dequeueReusableCell(withIdentifier: TextInputTableViewCell.reuseIdentifier) as! TextInputTableViewCell
         deckColorCell = tableView.dequeueReusableCell(withIdentifier: ColorPickerTableViewCell.reuseIdentifier) as! ColorPickerTableViewCell
         navigationController?.navigationBar.tintColor = UIColor.white
@@ -61,8 +64,8 @@ class EditDeckViewController: UIViewController {
     @IBAction func saveNewDeck(sender: UIButton!) {
         cdDeck.name = deckNameCell.textInput.text!
         cdDeck.hexColor = deckColorCell.colorPickerView.selectedColor?.hexValue ?? "CDCDCD"
-        tempContext.performAndWait {
-            try! self.tempContext.save()
+        tmpContext.performAndWait {
+            try! self.tmpContext.save()
         }
         assembler.databaseController.viewContext.performAndWait {
              self.assembler.databaseController.saveContext()
@@ -71,7 +74,10 @@ class EditDeckViewController: UIViewController {
     }
     
     @objc func newFlashCard() {
-        self.performSegue(withIdentifier: "addFlashCard", sender: newFlashCardButton)
+        let editFlashCardsVc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "editFlashCard") as! EditFlashCardViewController
+        editFlashCardsVc.context = tmpContext
+        editFlashCardsVc.delegate = self
+        self.navigationController?.pushViewController(editFlashCardsVc, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,9 +86,13 @@ class EditDeckViewController: UIViewController {
             if let cell = sender as? FlashCardTableViewCell {
                 editFlashCardViewController.cdFlashCard = cell.cdFlashCard
             }
-            editFlashCardViewController.context = self.tempContext
+            editFlashCardViewController.context = self.tmpContext
             editFlashCardViewController.delegate = self
         }
+    }
+    
+    @IBAction private func dismissEditDeckController(sender: UIBarButtonItem!) {
+        self.dismiss(animated: true, completion: nil)
     }
 
 }

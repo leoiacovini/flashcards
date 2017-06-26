@@ -11,10 +11,10 @@ import UIKit
 
 class FlashCardTableViewCell: UITableViewCell {
     static let reuseIdentifier: String = "FlashCardTableViewCell"
-    @IBOutlet weak var titleLabel: UILabel!
+    
     var cdFlashCard: CDFlashCard! {
         didSet {
-            self.titleLabel.text = cdFlashCard.title
+            self.textLabel?.text = cdFlashCard.title
         }
     }
     

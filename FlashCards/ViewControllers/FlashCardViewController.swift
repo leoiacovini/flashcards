@@ -27,10 +27,14 @@ class FlashCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateCounterLabel()
         collectionView.register(FlashCardView.self, forCellWithReuseIdentifier: FlashCardView.reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        setupUI()
+    }
+    
+    private func setupUI() {
+        updateCounterLabel()
         collectionView.backgroundColor = UIColor.clear
         if deck.flashCards.isEmpty {
             let label = UILabel(frame: collectionView.bounds)

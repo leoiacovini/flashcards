@@ -9,6 +9,22 @@
 import UIKit
 import CoreData
 
+class ImagePickerDelegateHandler: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    let handlerBlock: (UIImage) -> ()
+    
+    init(handlePickUp block: @escaping (UIImage) -> ()) {
+        self.handlerBlock = block
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        self.handlerBlock(image)
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
 protocol EditFlashCardControllerDelegate: class {
     func editFlashCardViewController(_ editFlashCardViewController: EditFlashCardViewController, didSaveFlashCard cdFlashCard: CDFlashCard) -> Void
 }
@@ -50,6 +66,27 @@ class EditFlashCardViewController: UITableViewController {
         cdFlashCard.question = questionTextView.text!
         cdFlashCard.answer = answerTextView.text!
         delegate?.editFlashCardViewController(self, didSaveFlashCard: cdFlashCard)
+    }
+    
+    let handler = ImagePickerDelegateHandler { (image) in
+        print(image)
+    }
+    
+    private func getImage() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = .photoLibrary
+        
+        imagePickerController.delegate = handler
+        present(imagePickerController, animated: true)
+    }
+    
+    @IBAction private func addQuestionImage(sender: UIButton!) {
+        getImage()
+    }
+    
+    @IBAction private func addAnswerImage(sender: UIButton!) {
+        
     }
     
 }

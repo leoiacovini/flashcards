@@ -17,7 +17,7 @@ class DocumentController {
             try data.write(to: tmp)
             return tmp
         } catch {
-            print("Error wrting to dir! \(tmp)")
+            print("Error writing to dir! \(tmp)")
             fatalError()
         }
     }

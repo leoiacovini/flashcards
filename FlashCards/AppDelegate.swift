@@ -15,10 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let assembler: Assembler = Assembler()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         let navigationViewController = window?.rootViewController as? UINavigationController
         let decksCollectionViewController = navigationViewController?.visibleViewController as? DecksCollectionViewController
+        
         decksCollectionViewController?.assembler = assembler
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard url.pathExtension == "deck" else { return false }
+        guard let deck = assembler.documentController.readDeckFile(url: url) else { return false }
+        
+        let _ = CDDeck(with: deck, using: assembler.databaseController.viewContext)
+        assembler.databaseController.saveContext()
+        
         return true
     }
 

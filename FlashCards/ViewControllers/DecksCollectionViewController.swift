@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SnapKit
 
 class DecksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -20,7 +20,8 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
         
         cdDeckDataSource = CDDecksDataSource(context: assembler.databaseController.viewContext, collectionView: collectionView!)
         try! cdDeckDataSource.start()
-        collectionView?.dataSource = self.cdDeckDataSource
+        collectionView?.dataSource = cdDeckDataSource
+        
         collectionView?.register(DeckCell.self, forCellWithReuseIdentifier: DeckCell.reuseIdentifier)
         collectionView?.backgroundColor = UIColor.white
         
@@ -93,8 +94,6 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
             }
         }
     }
-    
-    @IBAction func unwindToDecksCollectionViewController(segue: UIStoryboardSegue) { }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 150)
