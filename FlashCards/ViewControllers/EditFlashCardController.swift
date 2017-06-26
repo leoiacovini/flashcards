@@ -102,7 +102,6 @@ class EditFlashCardViewController: UITableViewController {
     @IBAction private func addQuestionImage(sender: UIButton!) {
         questionImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
             self.questionImage = image
-            sender.setBackgroundImage(image, for: UIControlState.normal)
         })
         getImage(handler: questionImageHandler)
     }
@@ -110,7 +109,6 @@ class EditFlashCardViewController: UITableViewController {
     @IBAction private func addAnswerImage(sender: UIButton!) {
         answerImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
             self.answerImage = image
-            sender.setBackgroundImage(image, for: UIControlState.normal)
         })
         getImage(handler: answerImageHandler)
     }

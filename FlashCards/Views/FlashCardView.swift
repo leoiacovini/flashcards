@@ -7,76 +7,41 @@
 //
 
 import UIKit
+import SnapKit
 
-class XIBView: UICollectionViewCell {
-    
-    var xibView: UIView!
-    
-    func xibName() -> String {
-        return ""
-    }
-    
-    func xibSetup() {
-        xibView = loadViewFromNib()
-        xibView.frame = bounds
-        xibView.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-        addSubview(xibView)
-    }
-    
-    func loadViewFromNib() -> UIView {
-        let bundle = Bundle(for: type(of: self))
-        let nib = UINib(nibName: xibName(), bundle: bundle)
-        let view = nib.instantiate(withOwner: self, options: nil)[0] as! UIView
-        return view
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        xibSetup()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        xibSetup()
-    }
-    
-}
-
-@IBDesignable class FlashCardView: XIBView {
-
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var messageTextView: UITextView!
-    @IBOutlet private weak var mainView: UIView!
-    @IBOutlet private weak var flipButton: UIButton!
-    var flipped: Bool = false
+class FlashCardView: UICollectionViewCell {
     static let reuseIdentifier: String = "flashCardCell"
     
-    override func xibName() -> String {
-        return "FlashCardView"
-    }
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        return label
+    }()
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.backgroundColor = UIColor.clear
-        xibView.backgroundColor = UIColor.clear
-        xibView.layer.shadowColor = UIColor.black.cgColor
-        xibView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        xibView.layer.shadowOpacity = 0.5
-        xibView.layer.shadowRadius = 4.0
-        xibView.layer.shadowPath = UIBezierPath(roundedRect: xibView.bounds, cornerRadius: 10).cgPath
-        xibView.layer.shouldRasterize = true
-        xibView.layer.rasterizationScale = UIScreen.main.scale
-        
-        mainView.layer.cornerRadius = 10
-        mainView.layer.borderWidth = 1.0
-        mainView.layer.masksToBounds = true
-        
-        flipButton.layer.shadowColor = UIColor.black.cgColor
-        flipButton.layer.shadowOffset = CGSize(width: 0, height: -2)
-        flipButton.layer.shadowOpacity = 0.4
-        flipButton.layer.shadowRadius = 2.0
-    }
+    var messageTextView: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.backgroundColor = UIColor.clear
+        textView.font = UIFont.systemFont(ofSize: 18)
+        return textView
+    }()
     
+    var mainView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
+    var flipButton: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        return button
+    }()
+    
+    var flipped: Bool = false
     var flashCard: FlashCard! {
         didSet {
             updateGUI()
@@ -91,6 +56,60 @@ class XIBView: UICollectionViewCell {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+        setupConstraints()
+        flipButton.addTarget(self, action: #selector(flipCard(sender:)), for: UIControlEvents.touchUpInside)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupView() {
+        self.addSubview(mainView)
+        mainView.addSubview(titleLabel)
+        mainView.addSubview(messageTextView)
+        mainView.addSubview(flipButton)
+        self.backgroundColor = UIColor.clear
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 4.0
+        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+        
+        mainView.layer.cornerRadius = 10
+        mainView.layer.borderWidth = 1.0
+        mainView.layer.masksToBounds = true
+        
+        flipButton.layer.shadowColor = UIColor.black.cgColor
+        flipButton.layer.shadowOffset = CGSize(width: 0, height: -2)
+        flipButton.layer.shadowOpacity = 0.4
+        flipButton.layer.shadowRadius = 2.0
+    }
+    
+    private func setupConstraints() {
+        mainView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        titleLabel.snp.makeConstraints { (make) in
+            make.trailing.leading.equalToSuperview()
+            make.top.equalToSuperview().offset(8)
+        }
+        flipButton.snp.makeConstraints { (make) in
+            make.bottom.trailing.leading.equalToSuperview()
+            make.height.equalTo(48)
+        }
+        messageTextView.snp.makeConstraints { (make) in
+            make.trailing.leading.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.bottom.equalTo(flipButton.snp.top).offset(8)
+        }
+    }
+    
     func updateGUI() {
         titleLabel.text = self.flashCard.title
         messageTextView.text = flipped ? flashCard.answer : flashCard.question
@@ -98,7 +117,8 @@ class XIBView: UICollectionViewCell {
         self.flipButton.setTitle(title, for: UIControlState.normal)
     }
     
-    @IBAction func flipCard(sender: UIButton! = nil) {
+    @objc func flipCard(sender: UIButton!) {
+        print("TOUCH")
         let options: UIViewAnimationOptions = [.transitionFlipFromRight]
         flipped = !flipped
         UIView.transition(with: self, duration: 0.4, options: options, animations: {
