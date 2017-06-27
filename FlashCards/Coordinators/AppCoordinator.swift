@@ -55,6 +55,8 @@ class AppCoordinator: Coordinator {
     init(rootViewController: UINavigationController, assembler: Assembler) {
         self.navigationController = rootViewController
         self.assembler = assembler
+        navigationController.navigationBar.barTintColor = #colorLiteral(red: 0.3970538261, green: 0.638962799, blue: 1, alpha: 1)
+        navigationController.navigationBar.tintColor = UIColor.white
     }
     
     func start() {
@@ -68,15 +70,19 @@ class AppCoordinator: Coordinator {
         navigationController.pushViewController(decksCollectionViewController, animated: true)
     }
     
-}
-
-extension AppCoordinator: DecksCollectionViewControllerDelegate {
-    func didTapEditDeck(cdDeck: CDDeck?) {
+    func showEditorCoordinator(cdDeck: CDDeck?) {
         let editorCoordinator = EditorCoordinator(cdDeck: cdDeck, assembler: assembler)
         editorCoordinator.parentCoordinator = self
         addChildCoordinator(coordinator: editorCoordinator)
         editorCoordinator.start()
         navigationController.present(editorCoordinator.navigationController, animated: true, completion: nil)
+    }
+    
+}
+
+extension AppCoordinator: DecksCollectionViewControllerDelegate {
+    func didTapEditDeck(cdDeck: CDDeck?) {
+        showEditorCoordinator(cdDeck: cdDeck)
     }
     
     func didTapShareDeck(cdDeck: CDDeck) {
@@ -87,7 +93,8 @@ extension AppCoordinator: DecksCollectionViewControllerDelegate {
     
     func didSelectDeck(cdDeck: CDDeck) {
         let flashCardViewController = loadFromStoryboard(identifier: FlashCardViewController.identifier) as! FlashCardViewController
-        flashCardViewController.deck = cdDeck.deck
+        flashCardViewController.cdDeck = cdDeck
+        flashCardViewController.coordinator = self
         self.navigationController.pushViewController(flashCardViewController, animated: true)
     }
     
@@ -127,6 +134,8 @@ class EditorCoordinator: Coordinator {
     
     init(cdDeck: CDDeck?, assembler: Assembler) {
         self.navigationController = UINavigationController()
+        navigationController.navigationBar.barTintColor = #colorLiteral(red: 0.3970538261, green: 0.638962799, blue: 1, alpha: 1)
+        navigationController.navigationBar.tintColor = UIColor.white
         self.assembler = assembler
         self.context = assembler.databaseController.viewContext.child()
         self.cdDeck = cdDeck == nil ? CDDeck(context: self.context) : self.context.object(with: cdDeck!.objectID) as! CDDeck

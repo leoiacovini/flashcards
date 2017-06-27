@@ -23,10 +23,6 @@ class ImagePickerDelegateHandler: NSObject, UIImagePickerControllerDelegate, UIN
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
-    }
-    
 }
 
 class EditFlashCardViewController: UITableViewController {

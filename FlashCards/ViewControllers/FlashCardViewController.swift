@@ -13,10 +13,11 @@ class FlashCardViewController: UIViewController {
     
     @IBOutlet weak private var counterLabel: PaddedUILabel!
     @IBOutlet weak private var collectionView: UICollectionView!
+    var coordinator: DecksCollectionViewControllerDelegate!
     
-    var deck: Deck! {
+    var cdDeck: CDDeck! {
         didSet {
-            self.navigationItem.title = deck.name
+            self.navigationItem.title = cdDeck.name
         }
     }
     
@@ -34,10 +35,16 @@ class FlashCardViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+        updateCounterLabel()
+    }
+    
     private func setupUI() {
         updateCounterLabel()
         collectionView.backgroundColor = UIColor.clear
-        if deck.flashCards.isEmpty {
+        if cdDeck.flashCards.isEmpty {
             let label = UILabel(frame: collectionView.bounds)
             label.textAlignment = .center
             label.numberOfLines = 2
@@ -49,7 +56,15 @@ class FlashCardViewController: UIViewController {
     }
     
     private func updateCounterLabel() {
-        counterLabel.text = "\(deck.size == 0 ? 0 : currentFlashCardIndex+1)/\(deck.size)"
+        counterLabel.text = "\(cdDeck.size == 0 ? 0 : currentFlashCardIndex+1)/\(cdDeck.size)"
+    }
+    
+    @IBAction func editDeck(sender: UIBarButtonItem!) {
+        coordinator.didTapEditDeck(cdDeck: self.cdDeck)
+    }
+    
+    @IBAction func shareDeck(sender: UIBarButtonItem!) {
+        coordinator.didTapShareDeck(cdDeck: self.cdDeck)
     }
     
 }
@@ -66,13 +81,13 @@ extension FlashCardViewController: UIScrollViewDelegate {
 extension FlashCardViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return deck.size
+        return cdDeck.size
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FlashCardView.reuseIdentifier, for: indexPath) as! FlashCardView
-        cell.flashCard = deck[indexPath.item]
-        cell.color = UIColor(hexColor: deck.hexColor)
+        cell.flashCard = cdDeck[indexPath.item].flashCard
+        cell.color = UIColor(hexColor: cdDeck.hexColor)
         return cell
     }
     

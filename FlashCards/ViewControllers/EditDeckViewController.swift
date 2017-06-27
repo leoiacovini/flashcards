@@ -141,7 +141,7 @@ extension EditDeckViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! FlashCardTableViewCell
         if indexPath.section == 1 {
-            self.coordinator.didEditFlashCard(cdFlashCard: cell.cdFlashCard)
+            coordinator.didEditFlashCard(cdFlashCard: cell.cdFlashCard)
         } else {
             cell.isSelected = false
         }

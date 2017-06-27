@@ -29,9 +29,17 @@
                                     <constraint firstAttribute="height" constant="44" id="xEG-En-x4P"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="edit" id="J2r-KO-ifz"/>
+                                    <barButtonItem systemItem="edit" id="J2r-KO-ifz">
+                                        <connections>
+                                            <action selector="editDeckWithSender:" destination="BYZ-38-t0r" id="dA6-8W-gS2"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="unj-NS-POG"/>
-                                    <barButtonItem systemItem="action" id="BuO-Py-dvp"/>
+                                    <barButtonItem systemItem="action" id="BuO-Py-dvp">
+                                        <connections>
+                                            <action selector="shareDeckWithSender:" destination="BYZ-38-t0r" id="DQF-gs-eeK"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/2" textAlignment="center" lineBreakMode="clip" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="uEf-eo-nOr" customClass="PaddedUILabel" customModule="FlashCards" customModuleProvider="target">

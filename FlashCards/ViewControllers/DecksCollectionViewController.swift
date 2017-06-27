@@ -21,10 +21,7 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
         cdDeckDataSource = CDDecksDataSource(context: assembler.databaseController.viewContext, collectionView: collectionView!)
         try! cdDeckDataSource.start()
         collectionView?.dataSource = cdDeckDataSource
-        
         collectionView?.register(DeckCell.self, forCellWithReuseIdentifier: DeckCell.reuseIdentifier)
-        collectionView?.backgroundColor = UIColor.white
-        
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(DecksCollectionViewController.itemLongPress(longPressRecognizer:)))
         longPressGestureRecognizer.minimumPressDuration = 0.8
         collectionView?.addGestureRecognizer(longPressGestureRecognizer)
@@ -38,7 +35,7 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
         label.textColor = UIColor.black
         label.text = "☹️\nNo Decks Here"
         self.collectionView?.backgroundView = label
-        updateBackgound()
+        collectionView?.backgroundColor = UIColor.white
     }
     
     override func viewWillAppear(_ animated: Bool) {
