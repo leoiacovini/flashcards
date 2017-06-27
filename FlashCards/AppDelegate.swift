@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard url.pathExtension == "deck" else { return false }
         guard let deck = assembler.documentController.readDeckFile(url: url) else { return false }
         
-        let _ = CDDeck(with: deck, using: assembler.databaseController.viewContext)
-        assembler.databaseController.saveContext()
+        let cdDeck = CDDeck(with: deck, using: assembler.databaseController.viewContext)
+        appCoordinator.showEditorCoordinator(cdDeck: cdDeck)
         
         return true
     }

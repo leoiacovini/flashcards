@@ -11,7 +11,7 @@ import UIKit
 class DecksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     static let identifier: String = "decksCollectionViewController"
     
-    var coordinator: DecksCollectionViewControllerDelegate!
+    var coordinator: DecksCollectionControllerDelegate!
     var assembler: Assembler!
     var longPressGestureRecognizer: UILongPressGestureRecognizer!
     var cdDeckDataSource: CDDecksDataSource!
@@ -50,22 +50,23 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
     }
     
     @IBAction func addNewDeck(_ sender: UIBarButtonItem) {
-        coordinator.didTapEditDeck(cdDeck: nil)
+        coordinator.decksCollectionController(self, didEdit: nil)
     }
     
     @objc func itemLongPress(longPressRecognizer: UILongPressGestureRecognizer) {
         if longPressRecognizer.state == UIGestureRecognizerState.began {
             if let index = collectionView?.indexPathForItem(at: longPressRecognizer.location(in: self.collectionView)) {
+                let cdDeck: CDDeck = self.cdDeckDataSource.object(at: index)
                 let alert = UIAlertController(title: "Deck Options", message: "Options for selected deck", preferredStyle: .actionSheet)
                 alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
-                    self.coordinator.didDeleteDeck(cdDeck: self.cdDeckDataSource.object(at: index))
+                    self.coordinator.decksCollectionController(self, didDelete: cdDeck)
                     self.updateBackgound()
                 }))
                 alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default, handler: { _ in
-                    self.coordinator.didTapEditDeck(cdDeck: self.cdDeckDataSource.object(at: index))
+                    self.coordinator.decksCollectionController(self, didEdit: cdDeck)
                 }))
                 alert.addAction(UIAlertAction(title: "Share", style: UIAlertActionStyle.default, handler: { (action) in
-                    self.coordinator.didTapShareDeck(cdDeck: self.cdDeckDataSource.object(at: index))
+                    self.coordinator.decksCollectionController(self, didShare: cdDeck)
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
                 let popOverFrame = collectionView?.cellForItem(at: index)?.frame
@@ -81,7 +82,7 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! DeckCell
-        self.coordinator.didSelectDeck(cdDeck: cell.cdDeck)
+        self.coordinator.decksCollectionController(self, didSelect: cell.cdDeck)
     }
     
 }

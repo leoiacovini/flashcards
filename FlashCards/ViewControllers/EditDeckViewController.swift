@@ -63,15 +63,15 @@ class EditDeckViewController: UIViewController {
     @IBAction func saveNewDeck(sender: UIButton!) {
         cdDeck.name = deckNameCell.textInput.text!
         cdDeck.hexColor = deckColorCell.colorPickerView.selectedColor?.hexValue ?? "CDCDCD"
-        coordinator.didTapSave()
+        coordinator.editDeckViewController(self, save: cdDeck)
     }
     
     @objc func newFlashCard() {
-        coordinator.didEditFlashCard(cdFlashCard: nil)
+        coordinator.editDeckViewController(self, edit: nil)
     }
     
     @IBAction private func dismissEditDeckController(sender: UIBarButtonItem!) {
-        coordinator.didCancel()
+        coordinator.editDeckViewController(self, cancel: cdDeck)
     }
 
 }
@@ -141,7 +141,7 @@ extension EditDeckViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! FlashCardTableViewCell
         if indexPath.section == 1 {
-            coordinator.didEditFlashCard(cdFlashCard: cell.cdFlashCard)
+            coordinator.editDeckViewController(self, edit: cell.cdFlashCard)
         } else {
             cell.isSelected = false
         }
@@ -155,7 +155,7 @@ extension EditDeckViewController: UITableViewDelegate {
         guard indexPath.section == 1 else { return [] }
         return [UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Delete", handler: { (action, indexPath) in
             let fcTableViewCell = tableView.cellForRow(at: indexPath) as! FlashCardTableViewCell
-            self.coordinator.didDeleteFlashCard(cdFlashCard: fcTableViewCell.cdFlashCard!)
+            self.coordinator.editDeckViewController(self, delete: fcTableViewCell.cdFlashCard!)
             tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         })]
     }

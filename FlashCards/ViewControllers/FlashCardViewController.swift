@@ -13,7 +13,7 @@ class FlashCardViewController: UIViewController {
     
     @IBOutlet weak private var counterLabel: PaddedUILabel!
     @IBOutlet weak private var collectionView: UICollectionView!
-    var coordinator: DecksCollectionViewControllerDelegate!
+    var coordinator: FlashCardViewControllerDelegate!
     
     var cdDeck: CDDeck! {
         didSet {
@@ -60,11 +60,11 @@ class FlashCardViewController: UIViewController {
     }
     
     @IBAction func editDeck(sender: UIBarButtonItem!) {
-        coordinator.didTapEditDeck(cdDeck: self.cdDeck)
+        coordinator.flashCardViewController(self, edit: cdDeck)
     }
     
     @IBAction func shareDeck(sender: UIBarButtonItem!) {
-        coordinator.didTapShareDeck(cdDeck: self.cdDeck)
+        coordinator.flashCardViewController(self, share: cdDeck)
     }
     
 }

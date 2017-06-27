@@ -78,7 +78,7 @@ class EditFlashCardViewController: UITableViewController {
         cdFlashCard.answer = answerTextView.text!
         if let image = questionImage { cdFlashCard.setQuestionImage(image) }
         if let image = answerImage { cdFlashCard.setAnswerImage(image) }
-        coordinator.didSaveFlashCard(cdFlashCard)
+        coordinator.editFlashCardViewController(self, save: cdFlashCard)
     }
     
     var questionImageHandler: ImagePickerDelegateHandler!
@@ -88,14 +88,14 @@ class EditFlashCardViewController: UITableViewController {
         questionImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
             self.questionImage = image
         })
-        coordinator.didTapSelectImage(handler: questionImageHandler)
+        coordinator.editFlashCardViewController(self, pickImageWith: questionImageHandler)
     }
     
     @IBAction private func addAnswerImage(sender: UIButton!) {
         answerImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
             self.answerImage = image
         })
-        coordinator.didTapSelectImage(handler: questionImageHandler)
+        coordinator.editFlashCardViewController(self, pickImageWith: answerImageHandler)
     }
     
 }

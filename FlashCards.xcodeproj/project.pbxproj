@@ -35,6 +35,8 @@
 		11F17D051EFA414E003EE215 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 11F17D041EFA414E003EE215 /* Cartfile */; };
 		11F17D0D1EFA4607003EE215 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F17D0B1EFA452C003EE215 /* SnapKit.framework */; };
 		11F4A0FA1F02197100161C5E /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F4A0F91F02197100161C5E /* AppCoordinator.swift */; };
+		11F4A0FC1F02D96500161C5E /* EditorCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F4A0FB1F02D96500161C5E /* EditorCoordinator.swift */; };
+		11F4A0FE1F02DC2300161C5E /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F4A0FD1F02DC2300161C5E /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		11F17D041EFA414E003EE215 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		11F17D0B1EFA452C003EE215 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		11F4A0F91F02197100161C5E /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		11F4A0FB1F02D96500161C5E /* EditorCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinator.swift; sourceTree = "<group>"; };
+		11F4A0FD1F02DC2300161C5E /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,7 +236,9 @@
 		11F4A0F81F02195400161C5E /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				11F4A0FD1F02DC2300161C5E /* Coordinator.swift */,
 				11F4A0F91F02197100161C5E /* AppCoordinator.swift */,
+				11F4A0FB1F02D96500161C5E /* EditorCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -399,6 +405,7 @@
 				110B52E61EFA525000999B4F /* CDDeckDataSource.swift in Sources */,
 				1116C96E1EF21EA300C189A2 /* FlashCard.swift in Sources */,
 				1116C97B1EF313A100C189A2 /* EditDeckViewController.swift in Sources */,
+				11F4A0FC1F02D96500161C5E /* EditorCoordinator.swift in Sources */,
 				1116C9701EF220A900C189A2 /* FlashCardView.swift in Sources */,
 				1179DDF41EF5AD9A00C1D280 /* DeckCell.swift in Sources */,
 				11F17D031EFA1832003EE215 /* Assembler.swift in Sources */,
@@ -412,6 +419,7 @@
 				1179DDFC1EF5D44300C1D280 /* Extensions.swift in Sources */,
 				11D4C3991EF7703F00E56B6F /* Model.xcdatamodeld in Sources */,
 				1116C9411EF21BD200C189A2 /* FlashCardViewController.swift in Sources */,
+				11F4A0FE1F02DC2300161C5E /* Coordinator.swift in Sources */,
 				11507F0D1EF5FBE1000AAD93 /* ColorPickerTableViewCell.swift in Sources */,
 				11D4C3E01EF77CD600E56B6F /* DatabaseController.swift in Sources */,
 				11507F0B1EF5E739000AAD93 /* ColorPickerView.swift in Sources */,
