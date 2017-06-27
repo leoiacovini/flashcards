@@ -30,7 +30,6 @@ class FlashCardView: UICollectionViewCell {
     
     var mainView: UIView = {
         let view = UIView()
-        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -124,7 +123,7 @@ class FlashCardView: UICollectionViewCell {
         let attributtedString: NSMutableAttributedString!
         let imageAttachment = NSTextAttachment()
         if flipped {
-            attributtedString = NSMutableAttributedString(string: flashCard.answer + "\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)])
+            attributtedString = NSMutableAttributedString(string: flashCard.answer + "\n\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)])
             if let image = flashCard.answerImage {
                 imageAttachment.image = UIImage(data: image)
                 let oldWidth = imageAttachment.image?.size.width
@@ -133,7 +132,7 @@ class FlashCardView: UICollectionViewCell {
                 attributtedString.append(NSAttributedString(attachment: imageAttachment))
             }
         } else {
-            attributtedString = NSMutableAttributedString(string: flashCard.question + "\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)])
+            attributtedString = NSMutableAttributedString(string: flashCard.question + "\n\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)])
             if let image = flashCard.questionImage {
                 imageAttachment.image = UIImage(data: image)
                 let oldWidth = imageAttachment.image?.size.width

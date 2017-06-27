@@ -38,11 +38,11 @@ class DeckCell: UICollectionViewCell {
         return mainView
     }()
     
-    var deck: Deck! {
+    var cdDeck: CDDeck! {
         didSet {
-            self.nameLabel.text = self.deck.name
-            self.countLabel.text = "\(self.deck.flashCards.count) cards"
-            let color = UIColor(hexColor: deck.hexColor)
+            self.nameLabel.text = self.cdDeck.name
+            self.countLabel.text = "\(self.cdDeck.size) cards"
+            let color = UIColor(hexColor: cdDeck.hexColor)
             self.mainView.backgroundColor = color
             self.backgroundColor = color.darker(by: 30)
         }

@@ -9,6 +9,7 @@
 import UIKit
 
 class FlashCardViewController: UIViewController {
+    static let identifier: String = "flashCardViewController"
     
     @IBOutlet weak private var counterLabel: PaddedUILabel!
     @IBOutlet weak private var collectionView: UICollectionView!

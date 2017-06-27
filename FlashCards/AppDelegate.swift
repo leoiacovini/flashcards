@@ -13,12 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let assembler: Assembler = Assembler()
+    var appCoordinator: AppCoordinator!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let navigationViewController = window?.rootViewController as? UINavigationController
-        let decksCollectionViewController = navigationViewController?.visibleViewController as? DecksCollectionViewController
         
-        decksCollectionViewController?.assembler = assembler
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = UINavigationController()
+        appCoordinator = AppCoordinator(rootViewController: window!.rootViewController! as! UINavigationController, assembler: assembler)
+        appCoordinator.start()
+        
+        self.window?.makeKeyAndVisible()
         return true
     }
     

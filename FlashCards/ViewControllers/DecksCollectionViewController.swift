@@ -7,17 +7,17 @@
 //
 
 import UIKit
-import SnapKit
 
 class DecksCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    static let identifier: String = "decksCollectionViewController"
     
+    var coordinator: DecksCollectionViewControllerDelegate!
     var assembler: Assembler!
     var longPressGestureRecognizer: UILongPressGestureRecognizer!
     var cdDeckDataSource: CDDecksDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         cdDeckDataSource = CDDecksDataSource(context: assembler.databaseController.viewContext, collectionView: collectionView!)
         try! cdDeckDataSource.start()
         collectionView?.dataSource = cdDeckDataSource
@@ -36,9 +36,8 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
         label.textAlignment = .center
         label.numberOfLines = 2
         label.textColor = UIColor.black
-        label.text = "☹️ \n No Decks Here"
+        label.text = "☹️\nNo Decks Here"
         self.collectionView?.backgroundView = label
-        navigationController?.navigationBar.tintColor = UIColor.white
         updateBackgound()
     }
     
@@ -53,44 +52,28 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
         })
     }
     
+    @IBAction func addNewDeck(_ sender: UIBarButtonItem) {
+        coordinator.didTapEditDeck(cdDeck: nil)
+    }
+    
     @objc func itemLongPress(longPressRecognizer: UILongPressGestureRecognizer) {
         if longPressRecognizer.state == UIGestureRecognizerState.began {
             if let index = collectionView?.indexPathForItem(at: longPressRecognizer.location(in: self.collectionView)) {
                 let alert = UIAlertController(title: "Deck Options", message: "Options for selected deck", preferredStyle: .actionSheet)
                 alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
-                    self.cdDeckDataSource.object(at: index).delete(context: self.assembler.databaseController.viewContext)
-                    self.assembler.databaseController.saveContext()
+                    self.coordinator.didDeleteDeck(cdDeck: self.cdDeckDataSource.object(at: index))
                     self.updateBackgound()
                 }))
-                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default, handler: { _ in self.performSegue(withIdentifier: "editDeck", sender: index.row) }))
+                alert.addAction(UIAlertAction(title: "Edit", style: UIAlertActionStyle.default, handler: { _ in
+                    self.coordinator.didTapEditDeck(cdDeck: self.cdDeckDataSource.object(at: index))
+                }))
                 alert.addAction(UIAlertAction(title: "Share", style: UIAlertActionStyle.default, handler: { (action) in
-                    let url = self.assembler.documentController.createDeckFile(deck: self.cdDeckDataSource.object(at: index).deck)
-                    let activityVc = UIActivityViewController(activityItems: [url!], applicationActivities: nil)
-                    self.present(activityVc, animated: true, completion: nil)
+                    self.coordinator.didTapShareDeck(cdDeck: self.cdDeckDataSource.object(at: index))
                 }))
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
                 let popOverFrame = collectionView?.cellForItem(at: index)?.frame
                 alert.popoverPresentationController?.sourceRect = popOverFrame!
                 self.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let deckCell = sender as? DeckCell {
-            if let flashCardViewController = segue.destination as? FlashCardViewController {
-                flashCardViewController.deck = deckCell.deck
-            }
-        } else if (sender as? UIBarButtonItem) != nil {
-            if let editNavigationController = segue.destination as? UINavigationController,
-               let newDeckViewController = editNavigationController.viewControllers.first as? EditDeckViewController {
-                newDeckViewController.assembler = self.assembler
-            }
-        } else if let index = sender as? Int {
-            if let editNavigationController = segue.destination as? UINavigationController,
-               let editDeckViewController = editNavigationController.viewControllers.first as? EditDeckViewController {
-                editDeckViewController.assembler = self.assembler
-                editDeckViewController.cdDeck = self.cdDeckDataSource.object(at: IndexPath(item: index, section: 0))
             }
         }
     }
@@ -101,7 +84,7 @@ class DecksCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! DeckCell
-        performSegue(withIdentifier: "deckSelected", sender: cell)
+        self.coordinator.didSelectDeck(cdDeck: cell.cdDeck)
     }
     
 }

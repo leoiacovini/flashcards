@@ -35,7 +35,7 @@ class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let deckCell = collectionView.dequeueReusableCell(withReuseIdentifier: DeckCell.reuseIdentifier, for: indexPath) as! DeckCell
-        deckCell.deck = fetchedResultsController.fetchedObjects![indexPath.item].deck
+        deckCell.cdDeck = fetchedResultsController.fetchedObjects![indexPath.item]
         return deckCell
     }
     

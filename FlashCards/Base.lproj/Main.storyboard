@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XNU-1B-THt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XNU-1B-THt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -14,7 +14,7 @@
         <!--FlashCards-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="FlashCardViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="flashCardViewController" id="BYZ-38-t0r" customClass="FlashCardViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -28,7 +28,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="xEG-En-x4P"/>
                                 </constraints>
-                                <items/>
+                                <items>
+                                    <barButtonItem systemItem="edit" id="J2r-KO-ifz"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="unj-NS-POG"/>
+                                    <barButtonItem systemItem="action" id="BuO-Py-dvp"/>
+                                </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/2" textAlignment="center" lineBreakMode="clip" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="uEf-eo-nOr" customClass="PaddedUILabel" customModule="FlashCards" customModuleProvider="target">
                                 <rect key="frame" x="152" y="632" width="70" height="26"/>
@@ -101,7 +105,7 @@
         <!--New Deck-->
         <scene sceneID="qbc-7A-zjo">
             <objects>
-                <viewController modalPresentationStyle="currentContext" id="W4m-ou-rD4" customClass="EditDeckViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editDeckViewController" modalPresentationStyle="currentContext" id="W4m-ou-rD4" customClass="EditDeckViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RLk-b2-DWY"/>
                         <viewControllerLayoutGuide type="bottom" id="FbX-n1-Nz8"/>
@@ -284,7 +288,7 @@
         <!--Decks-->
         <scene sceneID="DMk-ai-c8a">
             <objects>
-                <collectionViewController id="9Bn-Z7-5ep" customClass="DecksCollectionViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="decksCollectionViewController" id="9Bn-Z7-5ep" customClass="DecksCollectionViewController" customModule="FlashCards" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="JFy-ts-61v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -305,7 +309,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7pk-Jo-gjH">
                             <color key="tintColor" red="0.9843023419380188" green="0.98438400030136108" blue="0.94351929426193237" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <segue destination="0cf-4T-3TQ" kind="presentation" identifier="editDeck" id="udf-mM-GjU"/>
+                                <action selector="addNewDeck:" destination="9Bn-Z7-5ep" id="mSG-QS-NV0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

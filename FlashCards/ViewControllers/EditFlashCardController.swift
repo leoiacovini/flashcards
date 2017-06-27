@@ -29,20 +29,17 @@ class ImagePickerDelegateHandler: NSObject, UIImagePickerControllerDelegate, UIN
     
 }
 
-protocol EditFlashCardControllerDelegate: class {
-    func editFlashCardViewController(_ editFlashCardViewController: EditFlashCardViewController, didSaveFlashCard cdFlashCard: CDFlashCard) -> Void
-}
-
 class EditFlashCardViewController: UITableViewController {
-
+    static let identifier: String = "editFlashCard"
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var questionTextView: UITextView!
     @IBOutlet weak var answerTextView: UITextView!
     @IBOutlet weak var addQuestionImageButton: UIButton!
     @IBOutlet weak var addAnswerImageButton: UIButton!
     
-    weak var delegate: EditFlashCardControllerDelegate?
     var context: NSManagedObjectContext!
+    var coordinator: EditFlashCardViewControllerDelegate!
     var cdFlashCard: CDFlashCard!
     var questionImage: UIImage? {
         didSet {
@@ -85,15 +82,7 @@ class EditFlashCardViewController: UITableViewController {
         cdFlashCard.answer = answerTextView.text!
         if let image = questionImage { cdFlashCard.setQuestionImage(image) }
         if let image = answerImage { cdFlashCard.setAnswerImage(image) }
-        delegate?.editFlashCardViewController(self, didSaveFlashCard: cdFlashCard)
-    }
-    
-    private func getImage(handler: ImagePickerDelegateHandler) {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.allowsEditing = true
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.delegate = handler
-        present(imagePickerController, animated: true)
+        coordinator.didSaveFlashCard(cdFlashCard)
     }
     
     var questionImageHandler: ImagePickerDelegateHandler!
@@ -103,14 +92,14 @@ class EditFlashCardViewController: UITableViewController {
         questionImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
             self.questionImage = image
         })
-        getImage(handler: questionImageHandler)
+        coordinator.didTapSelectImage(handler: questionImageHandler)
     }
     
     @IBAction private func addAnswerImage(sender: UIButton!) {
         answerImageHandler = ImagePickerDelegateHandler(handlePickUp: { image in
             self.answerImage = image
         })
-        getImage(handler: answerImageHandler)
+        coordinator.didTapSelectImage(handler: questionImageHandler)
     }
     
 }
