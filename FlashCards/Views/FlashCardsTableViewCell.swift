@@ -6,7 +6,6 @@
 //  Copyright © 2017 Leonardo Iacovini. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class FlashCardTableViewCell: UITableViewCell {

@@ -64,10 +64,6 @@ extension FlashCardViewController: UIScrollViewDelegate {
 
 extension FlashCardViewController: UICollectionViewDataSource {
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return deck.size
     }

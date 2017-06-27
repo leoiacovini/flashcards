@@ -33,6 +33,7 @@ class EditDeckViewController: UIViewController {
             deckNameCell.selectionStyle = UITableViewCellSelectionStyle.none
         }
     }
+    
     var deckColorCell: ColorPickerTableViewCell! {
         didSet {
             let hexColor = cdDeck.hexColor

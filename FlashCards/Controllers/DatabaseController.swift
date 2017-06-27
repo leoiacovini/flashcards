@@ -25,12 +25,12 @@ class DatabaseController {
 
     var viewContext: NSManagedObjectContext {
         get {
-            return self.persistentContainer.viewContext
+            return persistentContainer.viewContext
         }
     }
     
     func newBackgroundContext() -> NSManagedObjectContext {
-        return self.persistentContainer.newBackgroundContext()
+        return persistentContainer.newBackgroundContext()
     }
     
     // MARK: - Core Data Saving support

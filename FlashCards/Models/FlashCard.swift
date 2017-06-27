@@ -81,7 +81,7 @@ public class CDFlashCard: NSManagedObject {
     
     var flashCard: FlashCard {
         get {
-            return FlashCard(title: title, question: question, answer: answer)
+            return FlashCard(title: title, question: question, answer: answer, questionImage: questionImage, answerImage: answerImage)
         }
     }
     

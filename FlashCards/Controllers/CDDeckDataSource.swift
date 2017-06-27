@@ -6,7 +6,6 @@
 //  Copyright © 2017 Leonardo Iacovini. All rights reserved.
 //
 
-import Foundation
 import CoreData
 import UIKit
 
@@ -25,9 +24,9 @@ class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsC
     }
     
     func start() throws {
-        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        self.fetchedResultsController.delegate = self
-        try self.fetchedResultsController.performFetch()
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        try fetchedResultsController.performFetch()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -44,15 +43,15 @@ class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsC
         switch type {
         case .delete:
             if let index = indexPath {
-                self.collectionView.deleteItems(at: [index])
+                collectionView.deleteItems(at: [index])
             }
         case .insert:
             if let index = newIndexPath {
-                self.collectionView.insertItems(at: [index])
+                collectionView.insertItems(at: [index])
             }
         case .update:
             if let index = indexPath {
-                self.collectionView.reloadItems(at: [index])
+                collectionView.reloadItems(at: [index])
             }
         default:
             break
@@ -60,18 +59,18 @@ class CDDecksDataSource: NSObject, UICollectionViewDataSource, NSFetchedResultsC
     }
     
     func decks(section: Int) -> Array<CDDeck> {
-        return self.fetchedResultsController.sections![section].objects as! Array<CDDeck>
+        return fetchedResultsController.sections![section].objects as! Array<CDDeck>
     }
     
     func count(section: Int) -> Int {
-        return self.fetchedResultsController.sections![section].numberOfObjects
+        return fetchedResultsController.sections![section].numberOfObjects
     }
     
     func isEmpty(section: Int) -> Bool {
-        return self.fetchedResultsController.sections![section].numberOfObjects == 0
+        return fetchedResultsController.sections![section].numberOfObjects == 0
     }
     
     func object(at indexPath: IndexPath) -> CDDeck {
-        return self.fetchedResultsController.object(at: indexPath)
+        return fetchedResultsController.object(at: indexPath)
     }
 }

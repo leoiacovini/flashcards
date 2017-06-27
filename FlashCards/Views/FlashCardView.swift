@@ -60,7 +60,7 @@ class FlashCardView: UICollectionViewCell {
         super.init(frame: frame)
         setupView()
         setupConstraints()
-        flipButton.addTarget(self, action: #selector(flipCard(sender:)), for: UIControlEvents.touchUpInside)
+        flipButton.addTarget(self, action: #selector(flipCard(sender:)), for: .touchUpInside)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,11 +80,9 @@ class FlashCardView: UICollectionViewCell {
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: 10).cgPath
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale
-        
         mainView.layer.cornerRadius = 10
         mainView.layer.borderWidth = 1.0
         mainView.layer.masksToBounds = true
-        
         flipButton.layer.shadowColor = UIColor.black.cgColor
         flipButton.layer.shadowOffset = CGSize(width: 0, height: -2)
         flipButton.layer.shadowOpacity = 0.4
@@ -110,15 +108,44 @@ class FlashCardView: UICollectionViewCell {
         }
     }
     
-    func updateGUI() {
+    private func updateGUI() {
         titleLabel.text = self.flashCard.title
-        messageTextView.text = flipped ? flashCard.answer : flashCard.question
+        updateText()
         let title = flipped ? "Show Question" :  "Show Answer"
         self.flipButton.setTitle(title, for: UIControlState.normal)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        updateGUI()
+    }
+    
+    private func updateText() {
+        let attributtedString: NSMutableAttributedString!
+        let imageAttachment = NSTextAttachment()
+        if flipped {
+            attributtedString = NSMutableAttributedString(string: flashCard.answer + "\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)])
+            if let image = flashCard.answerImage {
+                imageAttachment.image = UIImage(data: image)
+                let oldWidth = imageAttachment.image?.size.width
+                let scaleFactor = oldWidth! / (messageTextView.frame.size.width - 10)
+                imageAttachment.image = UIImage(cgImage: imageAttachment.image!.cgImage!, scale: scaleFactor, orientation: .up)
+                attributtedString.append(NSAttributedString(attachment: imageAttachment))
+            }
+        } else {
+            attributtedString = NSMutableAttributedString(string: flashCard.question + "\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18)])
+            if let image = flashCard.questionImage {
+                imageAttachment.image = UIImage(data: image)
+                let oldWidth = imageAttachment.image?.size.width
+                let scaleFactor = oldWidth! / (messageTextView.frame.size.width - 10)
+                imageAttachment.image = UIImage(cgImage: imageAttachment.image!.cgImage!, scale: scaleFactor, orientation: .up)
+                attributtedString.append(NSAttributedString(attachment: imageAttachment))
+            }
+        }
+        messageTextView.attributedText = attributtedString
+    }
+    
     @objc func flipCard(sender: UIButton!) {
-        print("TOUCH")
         let options: UIViewAnimationOptions = [.transitionFlipFromRight]
         flipped = !flipped
         UIView.transition(with: self, duration: 0.4, options: options, animations: {
