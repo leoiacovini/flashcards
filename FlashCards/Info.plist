@@ -8,7 +8,11 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
-			<array/>
+			<array>
+				<string>Icon-76</string>
+				<string>/Users/leoiacovini/Desktop/deckfile.png</string>
+				<string>deckfile</string>
+			</array>
 			<key>CFBundleTypeName</key>
 			<string>Deck File</string>
 			<key>CFBundleTypeRole</key>
@@ -37,14 +41,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Add in your flashcards</string>
 	<key>NSCameraUsageDescription</key>
+	<string>Add in your flashcards</string>
+	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Add in your flashcards</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

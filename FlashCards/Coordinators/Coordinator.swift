@@ -16,11 +16,11 @@ protocol Coordinator: class {
 
 extension Coordinator {
     func addChildCoordinator(coordinator: Coordinator) {
-        self.childCoordinators.append(coordinator)
+        childCoordinators.append(coordinator)
     }
     
     func removeChildCoordinator(coordinator: Coordinator) {
-        self.childCoordinators = self.childCoordinators.filter { $0 !== coordinator  }
+        childCoordinators = self.childCoordinators.filter { $0 !== coordinator  }
     }
     
     func presentCoordinator(_ coordinator: Coordinator) {

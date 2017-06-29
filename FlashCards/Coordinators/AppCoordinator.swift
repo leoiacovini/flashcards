@@ -15,13 +15,13 @@ protocol DecksCollectionControllerDelegate: Coordinator {
     func decksCollectionController(_ decksCollectionController: DecksCollectionViewController, didDelete cdDeck: CDDeck)
 }
 
-protocol FlashCardViewControllerDelegate {
+protocol FlashCardViewControllerDelegate: Coordinator {
     func flashCardViewController(_ flashCardViewController: FlashCardViewController, edit cdDeck: CDDeck)
     func flashCardViewController(_ flashCardViewController: FlashCardViewController, share cdDeck: CDDeck)
 }
 
-protocol EditCoordinatorDelegate: Coordinator {
-    func didEndEditing(editorCoordinator: EditorCoordinator)
+protocol EditorCoordinatorDelegate: Coordinator {
+    func editorCoordinator(_ editorCoordinator: EditorCoordinator, didEndEditing cdDeck: CDDeck?)
 }
 
 class AppCoordinator: Coordinator {
@@ -100,8 +100,8 @@ extension AppCoordinator: FlashCardViewControllerDelegate {
     }
 }
 
-extension AppCoordinator: EditCoordinatorDelegate {
-    func didEndEditing(editorCoordinator: EditorCoordinator) {
+extension AppCoordinator: EditorCoordinatorDelegate {
+    func editorCoordinator(_ editorCoordinator: EditorCoordinator, didEndEditing cdDeck: CDDeck?) {
         editorCoordinator.navigationController.dismiss(animated: true, completion: nil)
         removeChildCoordinator(coordinator: editorCoordinator)
     }

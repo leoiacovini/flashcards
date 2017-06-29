@@ -19,7 +19,7 @@ class ImagePickerDelegateHandler: NSObject, UIImagePickerControllerDelegate, UIN
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.handlerBlock(image)
+        self.handlerBlock(image.resized(withPercentage: 0.5)!)
         picker.dismiss(animated: true, completion: nil)
     }
     

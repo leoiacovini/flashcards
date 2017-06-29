@@ -30,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard url.pathExtension == "deck" else { return false }
         guard let deck = assembler.documentController.readDeckFile(url: url) else { return false }
         
+        if !appCoordinator.childCoordinators.isEmpty {
+            appCoordinator.editorCoordinator(appCoordinator.childCoordinators.first as! EditorCoordinator, didEndEditing: nil)
+        }
+        
         let cdDeck = CDDeck(with: deck, using: assembler.databaseController.viewContext)
         appCoordinator.showEditorCoordinator(cdDeck: cdDeck)
         

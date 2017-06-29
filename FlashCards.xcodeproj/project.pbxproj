@@ -31,6 +31,7 @@
 		11D4C3991EF7703F00E56B6F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11D4C3971EF7703F00E56B6F /* Model.xcdatamodeld */; };
 		11D4C3E01EF77CD600E56B6F /* DatabaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D4C3DF1EF77CD600E56B6F /* DatabaseController.swift */; };
 		11D4C3EA1EF814D400E56B6F /* DocumentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D4C3E91EF814D400E56B6F /* DocumentController.swift */; };
+		11E8FD901F04312300707E11 /* deckfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 11E8FD8F1F04312300707E11 /* deckfile.png */; };
 		11F17D031EFA1832003EE215 /* Assembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F17D021EFA1832003EE215 /* Assembler.swift */; };
 		11F17D051EFA414E003EE215 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 11F17D041EFA414E003EE215 /* Cartfile */; };
 		11F17D0D1EFA4607003EE215 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11F17D0B1EFA452C003EE215 /* SnapKit.framework */; };
@@ -87,6 +88,7 @@
 		11D4C3981EF7703F00E56B6F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		11D4C3DF1EF77CD600E56B6F /* DatabaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseController.swift; sourceTree = "<group>"; };
 		11D4C3E91EF814D400E56B6F /* DocumentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentController.swift; sourceTree = "<group>"; };
+		11E8FD8F1F04312300707E11 /* deckfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deckfile.png; path = ../deckfile.png; sourceTree = "<group>"; };
 		11F17D021EFA1832003EE215 /* Assembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembler.swift; sourceTree = "<group>"; };
 		11F17D041EFA414E003EE215 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		11F17D0B1EFA452C003EE215 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		1116C9321EF21BD200C189A2 = {
 			isa = PBXGroup;
 			children = (
+				11E8FD8F1F04312300707E11 /* deckfile.png */,
 				1116C93D1EF21BD200C189A2 /* FlashCards */,
 				1116C9521EF21BD200C189A2 /* FlashCardsTests */,
 				1116C95D1EF21BD200C189A2 /* FlashCardsUITests */,
@@ -360,6 +363,7 @@
 				11F17D051EFA414E003EE215 /* Cartfile in Resources */,
 				1116C9491EF21BD200C189A2 /* LaunchScreen.storyboard in Resources */,
 				1116C9461EF21BD200C189A2 /* Assets.xcassets in Resources */,
+				11E8FD901F04312300707E11 /* deckfile.png in Resources */,
 				1116C9441EF21BD200C189A2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,6 +601,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				IBSC_WARNINGS = NO;
 				INFOPLIST_FILE = FlashCards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.leoiacovini.FlashCards;
@@ -619,6 +624,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				IBSC_WARNINGS = NO;
 				INFOPLIST_FILE = FlashCards/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.leoiacovini.FlashCards;

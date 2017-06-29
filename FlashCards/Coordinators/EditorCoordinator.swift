@@ -24,7 +24,7 @@ protocol EditFlashCardViewControllerDelegate: Coordinator {
 class EditorCoordinator: Coordinator {
     
     var navigationController: UINavigationController!
-    var parentCoordinator: EditCoordinatorDelegate!
+    var parentCoordinator: EditorCoordinatorDelegate!
     var childCoordinators: Array<Coordinator> = []
     var assembler: Assembler!
     var cdDeck: CDDeck?
@@ -61,14 +61,14 @@ extension EditorCoordinator: EditDeckViewControllerDelegate {
     func editDeckViewController(_ editDeckViewController: EditDeckViewController, save cdDeck: CDDeck) {
         self.context.performAndWait { try! self.context.save() }
         assembler.databaseController.viewContext.performAndWait { self.assembler.databaseController.saveContext() }
-        parentCoordinator.didEndEditing(editorCoordinator: self)
+        parentCoordinator.editorCoordinator(self, didEndEditing: cdDeck)
     }
     
     func editDeckViewController(_ editDeckViewController: EditDeckViewController, cancel cdDeck: CDDeck) {
-        // Clean up contexts before leaving yo guarantee nothing was left behind
+        // Clean up contexts before leaving to guarantee nothing was left behind
         context.reset()
         assembler.databaseController.viewContext.rollback()
-        parentCoordinator.didEndEditing(editorCoordinator: self)
+        parentCoordinator.editorCoordinator(self, didEndEditing: nil)
     }
     
     func editDeckViewController(_ editDeckViewController: EditDeckViewController, edit cdFlashCard: CDFlashCard?) {

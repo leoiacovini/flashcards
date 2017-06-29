@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XNU-1B-THt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -86,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1697" y="116"/>
+            <point key="canvasLocation" x="1293" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="t4O-og-x0f">
@@ -108,7 +108,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0go-aI-Htt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="50" y="117"/>
+            <point key="canvasLocation" x="368" y="116"/>
         </scene>
         <!--New Deck-->
         <scene sceneID="qbc-7A-zjo">
@@ -160,7 +160,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vz3-vP-5u3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1697" y="-618"/>
+            <point key="canvasLocation" x="839" y="-621"/>
         </scene>
         <!--New FlashCard-->
         <scene sceneID="eng-p5-7Pe">
@@ -291,7 +291,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JEy-fk-Hn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2453.5999999999999" y="-618.44077961019491"/>
+            <point key="canvasLocation" x="1293" y="-622"/>
         </scene>
         <!--Decks-->
         <scene sceneID="DMk-ai-c8a">
@@ -327,7 +327,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wix-ta-tWh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="893.60000000000002" y="115.59220389805098"/>
+            <point key="canvasLocation" x="839" y="116"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6DW-lS-YuG">
@@ -349,7 +349,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h8v-lv-Ztq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="-618"/>
+            <point key="canvasLocation" x="368" y="-619"/>
         </scene>
     </scenes>
     <resources>

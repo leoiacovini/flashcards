@@ -26,8 +26,8 @@ public struct FlashCard: Codable {
     }
     
     init(title: String, question: String, answer: String, questionImage: UIImage?, answerImage: UIImage?) {
-        let questionImageData: Data? = questionImage != nil ? UIImageJPEGRepresentation(questionImage!, 0.7) : nil
-        let answerImageData: Data? = answerImage != nil ? UIImageJPEGRepresentation(answerImage!, 0.7) : nil
+        let questionImageData: Data? = questionImage != nil ? UIImageJPEGRepresentation(questionImage!, 0.3) : nil
+        let answerImageData: Data? = answerImage != nil ? UIImageJPEGRepresentation(answerImage!, 0.3) : nil
         self.init(title: title, question: question, answer: answer, questionImage: questionImageData, answerImage: answerImageData)
     }
     
@@ -86,7 +86,7 @@ public class CDFlashCard: NSManagedObject {
     }
     
     private func imageToData(_ image: UIImage) -> Data? {
-        return UIImageJPEGRepresentation(image, 0.7)
+        return UIImageJPEGRepresentation(image, 0.4)
     }
     
     func setQuestionImage(_ image: UIImage) {
